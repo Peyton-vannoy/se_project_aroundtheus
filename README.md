@@ -1,10 +1,4 @@
 # Project 3: Around The U.S.
-
-### Overview  
-
-* Intro  
-* Figma  
-* Images  
   
 **Intro**
   
