@@ -12,5 +12,5 @@ My first big project where we use all of what we learned in the first few sprint
   
 **Video**
   
-* [Link to the project Video](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)  
+* [Link to the project Video](https://drive.google.com/file/d/1f1er8BmMSQv1e9rolFJVWReN7zuuvGKL/view?usp=sharing)  
 
