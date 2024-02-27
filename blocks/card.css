@@ -1,8 +1,4 @@
-.cards {
-  margin-top: 51px;
-}
-
-.card__list {
+.cards__list {
   display: grid;
   justify-content: center;
   grid-template-columns: repeat(auto-fit, 282px);
@@ -39,7 +35,9 @@
 .card__title {
   font-weight: 900;
   line-height: 1.2;
+  width: 219px;
   margin: 0;
+  font-size: 24px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -54,5 +52,5 @@
 }
 
 .card__like-button:hover {
-  opacity: 0.6;
+  opacity: 50%;
 }
