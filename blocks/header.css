@@ -1,9 +1,8 @@
 .header {
-  margin-top: 45px;
-}
-
-.header__line {
-  margin: 41px 0 0;
-  border: solid 1px #545454;
+  margin: 45px auto 40px;
+  border-bottom: solid 1px #545454;
   opacity: 70%;
+  padding-bottom: 41px;
+  width: 100%;
+  max-width: 880px;
 }
