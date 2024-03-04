@@ -111,7 +111,7 @@
     width: 18px;
     height: 18px;
     position: relative;
-    top: 35px;
+    top: 7px;
   }
 
   .profile__image {
@@ -120,7 +120,7 @@
 
   .footer__copyright {
     font-size: 14px;
-    line-height: 1.2;
+    line-height: 16.94px;
     margin: 12px 0 0;
     width: 100%;
   }
