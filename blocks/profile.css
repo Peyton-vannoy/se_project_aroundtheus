@@ -18,6 +18,7 @@
     "title button"
     "description description";
   grid-template-columns: minmax(auto, 373px) auto;
+  align-items: center;
 }
 
 .profile__edit-button {
@@ -58,6 +59,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  max-width: 415px;
 }
 
 .profile__description {
@@ -69,6 +71,12 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+@media screen and (max-width: 263px) {
+  .profile__edit-button {
+    margin: 0;
+  }
 }
 
 @media screen and (max-width: 750px) {
@@ -110,8 +118,7 @@
   .profile__edit-button {
     width: 18px;
     height: 18px;
-    position: relative;
-    top: 35px;
+    margin-top: 25px;
   }
 
   .profile__image {
