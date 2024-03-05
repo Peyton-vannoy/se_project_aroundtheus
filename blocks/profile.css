@@ -87,8 +87,6 @@
 
   .profile__title {
     margin: 30px 10px 0 0;
-    display: flex;
-    text-align: center;
     font-size: 22px;
     line-height: 1.2;
   }
