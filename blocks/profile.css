@@ -111,39 +111,16 @@
     width: 18px;
     height: 18px;
     position: relative;
-    top: 7px;
+    top: 35px;
   }
 
   .profile__image {
     margin: 0;
   }
-
-  .footer__copyright {
-    font-size: 14px;
-    line-height: 16.94px;
-    margin: 12px 0 0;
-    width: 100%;
-  }
-
-  .header__logo {
-    max-width: 126px;
-    margin-left: 27px;
-  }
 }
 
 @media screen and (max-width: 1100px) {
-  .page__section {
-    margin: 0 20px 36px;
-    max-width: calc(100% - 40px);
-  }
-
   .profile__add-button {
     max-width: 282px;
-  }
-
-  .header {
-    margin-top: 28px;
-    margin-bottom: 42px;
-    padding-bottom: 32px;
   }
 }
