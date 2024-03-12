@@ -115,9 +115,15 @@
     font-size: 18px;
     padding: 25px 22px 0;
     height: 22px;
+    margin-bottom: 75px;
   }
 
   .modal__profile_description {
     margin-bottom: 45px;
+  }
+
+  .modal__button {
+    font-size: 14px;
+    line-height: 16.94px;
   }
 }
