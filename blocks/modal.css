@@ -39,6 +39,10 @@
   background-image: url(../images/close.svg);
 }
 
+.modal__close:hover {
+  opacity: 60%;
+}
+
 .modal__heading {
   margin: 0 0 54px;
   color: #000;
@@ -113,7 +117,7 @@
 }
 
 .modal__button:hover {
-  opacity: 0.8;
+  opacity: 80%;
 }
 
 @media screen and (max-width: 600px) {
