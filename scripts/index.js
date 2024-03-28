@@ -72,9 +72,19 @@ function getCardElement(cardData) {
   const cardImageEl = cardElement.querySelector(".card__image");
   const cardTitleEl = cardElement.querySelector(".card__title");
   const likeButton = cardElement.querySelector(".card__like-button");
+  const deleteButton = cardElement.querySelector(".card__delete-button");
+
+  //add the event listener to the delete button
+  //cardElement.remove();
+
+  //add click listener to cardImage element
+  //openPopup with previewImageModal
 
   likeButton.addEventListener("click", () => {
     likeButton.classList.toggle("card__like-button_active");
+  });
+  deleteButton.addEventListener("click", () => {
+    cardElement.remove();
   });
 
   cardImageEl.src = cardData.link;
@@ -91,7 +101,7 @@ function handleProfileEditSubmit(e) {
   e.preventDefault();
   profileTitle.textContent = profileTitleInput.value;
   profileDescription.textContent = profileDescriptionInput.value;
-  closePopup();
+  closePopup(profileEditModal);
 }
 
 /*--------------------------------------------------------------*/

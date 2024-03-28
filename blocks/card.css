@@ -51,7 +51,7 @@
   background-image: url(../images/like-button-active.svg);
 }
 
-.card__trash-button {
+.card__delete-button {
   background: transparent url(../images/Trash.svg) center no-repeat;
   width: 18px;
   height: 19.3px;
