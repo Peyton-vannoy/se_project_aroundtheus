@@ -10,10 +10,16 @@
   display: none;
   align-items: center;
   justify-content: center;
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.6s, opacity 0.6s linear;
 }
 
 .modal_opened {
-  display: flex;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s, opacity 0.6s linear;
 }
 
 .modal__container {
@@ -23,6 +29,16 @@
   background-color: #fff;
   padding: 36px;
   border-radius: 10px;
+}
+
+.modal__container_type_image {
+  padding: 0;
+  max-height: 75vh;
+  max-width: 75vw;
+  display: flex;
+  width: auto;
+  height: auto;
+  background: none;
 }
 
 .modal__close {
@@ -68,7 +84,7 @@
   line-height: 17px;
 }
 
-.modal__profile_name {
+.modal__input_type_name {
   margin-bottom: 30px;
   padding: 0 0 13px;
   border: none;
@@ -91,7 +107,7 @@
   color: #000;
 }
 
-.modal__profile_url {
+.modal__input_type_url {
   margin-bottom: 48px;
   padding: 0 0 13px;
   border: none;
