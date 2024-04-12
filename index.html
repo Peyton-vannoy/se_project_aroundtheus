@@ -43,59 +43,62 @@
       </footer>
     </div>
 
-    <!-- Edit Modal -->
-    <div class="modal" id="profile-edit-modal">
-      <div class="modal__container">
-        <button class="modal__close" id="modal-close-btn"></button>
-        <p class="modal__heading">Edit Profile</p>
-        <form class="modal__form">
+    <!-- Edit popup -->
+    <div class="popup" id="profile-edit-popup">
+      <div class="popup__container">
+        <button class="popup__close" id="popup-close-btn"></button>
+        <p class="popup__heading">Edit Profile</p>
+        <form class="popup__form">
           <input
-            class="modal__profile modal__profile_title"
+            class="popup__input popup__profile_title"
             type="text"
             id="profile-title-input"
             name="title"
             placeholder="Jacques Cousteau"
+            maxlength="40"
+            minlength="2"
+            required
           />
           <input
-            class="modal__profile modal__profile_description"
+            class="popup__input popup__profile_description"
             type="text"
             id="profile-description-input"
             name="description"
             placeholder="Explorer"
           />
-          <button class="modal__button">Save</button>
+          <button class="popup__button">Save</button>
         </form>
       </div>
     </div>
-    <!-- Add Modal -->
-    <div class="modal" id="add-card-modal">
-      <div class="modal__container">
-        <button class="modal__close" id="modal-close-btn"></button>
-        <p class="modal__heading">New Place</p>
-        <form class="modal__form" id="add-card-form">
+    <!-- Add popup -->
+    <div class="popup" id="add-card-popup">
+      <div class="popup__container">
+        <button class="popup__close" id="popup-close-btn"></button>
+        <p class="popup__heading">New Place</p>
+        <form class="popup__form" id="add-card-form">
           <input
-            class="modal__profile modal__input_type_name"
+            class="popup__input popup__input_type_name"
             type="text"
             id="profile-title-input"
             name="name"
             placeholder="Title"
           />
           <input
-            class="modal__profile modal__input_type_url"
+            class="popup__input popup__input_type_url"
             type="text"
             id="profile-description-input"
             name="url"
             placeholder="Image URL"
           />
-          <button class="modal__button">Create</button>
+          <button class="popup__button">Create</button>
         </form>
       </div>
     </div>
 
-    <!-- previewImageModal -->
-    <div class="modal" id="image-modal">
-      <div class="modal__container modal__container_type_image">
-        <button class="modal__close" id="modal-close-btn"></button>
+    <!-- previewImagepopup -->
+    <div class="popup" id="image-popup">
+      <div class="popup__container popup__container_type_image">
+        <button class="popup__close" id="popup-close-btn"></button>
         <img src="" alt="" class="popup__image" />
         <p class="popup__caption"></p>
       </div>
@@ -113,5 +116,6 @@
     </template>
 
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validation.js"></script>
   </body>
 </html>
