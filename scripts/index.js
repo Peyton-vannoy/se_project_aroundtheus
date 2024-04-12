@@ -141,3 +141,19 @@ addCardPopupCloseBtn.addEventListener("click", () => closePopup(addCardPopup));
 imagePopupCloseBtn.addEventListener("click", () => closePopup(imagePopup));
 
 initialCards.forEach((cardData) => renderCard(cardData, cardListEl));
+
+document.addEventListener("keydown", (evt) => {
+  if (evt.key === "Escape") {
+    closePopup(profileEditPopup);
+  }
+});
+document.addEventListener("keydown", (evt) => {
+  if (evt.key === "Escape") {
+    closePopup(addCardPopup);
+  }
+});
+document.addEventListener("keydown", (evt) => {
+  if (evt.key === "Escape") {
+    closePopup(imagePopup);
+  }
+});

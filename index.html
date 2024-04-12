@@ -90,15 +90,28 @@
             id="profile-title-input"
             name="name"
             placeholder="Title"
+            minlength="1"
+            maxlength="30"
+            required
           />
+          <span
+            class="popup__error"
+            id="profile-description-input-error"
+          ></span>
           <input
             class="popup__input popup__input_type_url"
             type="text"
             id="profile-description-input"
             name="url"
             placeholder="Image URL"
+            required
           />
-          <button class="popup__button">Create</button>
+          <span class="popup__error" id="profile-description-input-error"
+            >please enter a web address.</span
+          >
+          <button class="popup__button popup__button_disabled" disabled>
+            Create
+          </button>
         </form>
       </div>
     </div>
