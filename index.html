@@ -59,13 +59,21 @@
             minlength="2"
             required
           />
+          <span class="popup__error" id="profile-title-input-error"></span>
           <input
             class="popup__input popup__profile_description"
             type="text"
             id="profile-description-input"
             name="description"
             placeholder="Explorer"
+            maxlength="200"
+            minlength="2"
+            required
           />
+          <span
+            class="popup__error"
+            id="profile-description-input-error"
+          ></span>
           <button class="popup__button">Save</button>
         </form>
       </div>
