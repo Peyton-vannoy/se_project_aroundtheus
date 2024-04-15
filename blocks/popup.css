@@ -148,7 +148,6 @@
 
 .popup__button:disabled {
   background-color: grey;
-  cursor: ;
 }
 
 @media screen and (max-width: 600px) {
