@@ -59,16 +59,6 @@ const enableValidation = (options) => {
     });
 
     setEventListeners(formEl, options);
-    //look for all inputs inside of form
-    //loop throiugh all the inputsa to see if all are valid
-    //if input is not valid
-    //get validation message
-    //add error class to input
-    //display error message
-    // display button
-    // if inputs are valid
-    //enable button
-    //reset error message
   });
 };
 

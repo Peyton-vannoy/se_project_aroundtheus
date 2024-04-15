@@ -49,7 +49,7 @@ const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 const cardNameInput = addCardFormElement.querySelector(
-  ".popup__input_type_name"
+  ".popup__description_type_name"
 );
 const cardUrlInput = addCardFormElement.querySelector(".popup__input_type_url");
 
