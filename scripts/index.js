@@ -37,6 +37,8 @@ const imagePopup = document.querySelector("#image-popup");
 const popupImageElement = imagePopup.querySelector(".popup__image");
 const popupCaption = imagePopup.querySelector(".popup__caption");
 
+const closeButtons = document.querySelectorAll(".popup__close");
+
 const profileEditBtn = document.querySelector("#profile-edit-button");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
@@ -132,9 +134,10 @@ profileEditBtn.addEventListener("click", () => {
   openPopup(profileEditPopup);
 });
 
-profilePopupCloseBtn.addEventListener("click", () =>
-  closePopup(profileEditPopup)
-);
+closeButtons.forEach((button) => {
+  const popup = button.closest(".popup");
+  button.addEventListener("click", () => closePopup(popup));
+});
 
 addNewCardButton.addEventListener("click", () => openPopup(addCardPopup));
 addCardPopupCloseBtn.addEventListener("click", () => closePopup(addCardPopup));
@@ -144,16 +147,34 @@ initialCards.forEach((cardData) => renderCard(cardData, cardListEl));
 
 document.addEventListener("keydown", (evt) => {
   if (evt.key === "Escape") {
-    closePopup(profileEditPopup);
+    profileEditPopup.classList.remove("popup_opened");
   }
 });
 document.addEventListener("keydown", (evt) => {
   if (evt.key === "Escape") {
-    closePopup(addCardPopup);
+    addCardPopup.classList.remove("popup_opened");
   }
 });
 document.addEventListener("keydown", (evt) => {
   if (evt.key === "Escape") {
-    closePopup(imagePopup);
+    imagePopup.classList.remove("popup_opened");
+  }
+});
+
+profileEditPopup.addEventListener("click", (evt) => {
+  if (evt.target == profileEditPopup) {
+    profileEditPopup.classList.remove("popup_opened");
+  }
+});
+
+addCardPopup.addEventListener("click", (evt) => {
+  if (evt.target == addCardPopup) {
+    addCardPopup.classList.remove("popup_opened");
+  }
+});
+
+imagePopup.addEventListener("click", (evt) => {
+  if (evt.target == imagePopup) {
+    imagePopup.classList.remove("popup_opened");
   }
 });
