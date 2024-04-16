@@ -144,16 +144,18 @@ initialCards.forEach((cardData) => renderCard(cardData, cardListEl));
 
 document.addEventListener("keydown", (evt) => {
   if (evt.key === "Escape") {
-    closePopup(profileEditPopup);
+    profileEditPopup.classList.remove("popup_opened");
   }
 });
+
 document.addEventListener("keydown", (evt) => {
   if (evt.key === "Escape") {
-    closePopup(addCardPopup);
+    addCardPopup.classList.remove("popup_opened");
   }
 });
+
 document.addEventListener("keydown", (evt) => {
   if (evt.key === "Escape") {
-    closePopup(imagePopup);
+    imagePopup.classList.remove("popup_opened");
   }
 });
