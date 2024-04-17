@@ -37,6 +37,8 @@ const imagePopup = document.querySelector("#image-popup");
 const popupImageElement = imagePopup.querySelector(".popup__image");
 const popupCaption = imagePopup.querySelector(".popup__caption");
 
+const popups = document.querySelectorAll(".popup");
+
 const closeButtons = document.querySelectorAll(".popup__close");
 
 const profileEditBtn = document.querySelector("#profile-edit-button");
@@ -143,23 +145,28 @@ addNewCardButton.addEventListener("click", () => openPopup(addCardPopup));
 
 initialCards.forEach((cardData) => renderCard(cardData, cardListEl));
 
+function popupCloseOnKeyPress(evt) {
+  document.removeEventListener("keydown", popupCloseOnKeyPress);
+}
+
 document.addEventListener("keydown", (evt) => {
   if (evt.key === "Escape") {
     closePopup(profileEditPopup);
-  }
-});
-document.addEventListener("keydown", (evt) => {
-  if (evt.key === "Escape") {
     closePopup(addCardPopup);
-  }
-});
-document.addEventListener("keydown", (evt) => {
-  if (evt.key === "Escape") {
     closePopup(imagePopup);
   }
 });
 
-const popups = document.querySelectorAll(".popup");
+// document.addEventListener("keydown", (evt) => {
+//   if (evt.key === "Escape") {
+//     closePopup(addCardPopup);
+//   }
+// });
+// document.addEventListener("keydown", (evt) => {
+//   if (evt.key === "Escape") {
+//     closePopup(imagePopup);
+//   }
+// });
 
 popups.forEach((popup) => {
   popup.addEventListener("mousedown", (evt) => {
