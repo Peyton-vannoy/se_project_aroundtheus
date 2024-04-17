@@ -46,7 +46,6 @@ const closeButtons = document.querySelectorAll(".popup__close");
 const profileEditBtn = document.querySelector("#profile-edit-button");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
-//const profilePopupCloseBtn = profileEditPopup.querySelector("#popup-close-btn");
 const imagePopupCloseBtn = imagePopup.querySelector("#popup-close-btn");
 const addCardPopupCloseBtn = addCardPopup.querySelector("#popup-close-btn");
 const profileTitleInput = document.querySelector("#profile-title-input");
@@ -69,29 +68,19 @@ const cardTemplate =
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
+  document.addEventListener("keydown", handleEscape);
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", handleEscape);
 }
 
 function handleEscape(evt) {
   if (evt.key === "Escape") {
     const openedPopup = document.querySelector(".popup_opened");
-    closePopup.classList.remove(".popup_opened");
+    closePopup(openedPopup);
   }
-}
-
-function openModal(modal) {
-  openPopup(modal);
-  document.addEventListener("keydown", handleEscape);
-}
-
-function closeModal(modal) {
-  closePopup(profileEditPopup);
-  closePopup(addCardPopup);
-  closePopup(imagePopup);
-  document.removeEventListener("keydown", handleEscape);
 }
 
 function renderCard(cardData, wrapper) {
