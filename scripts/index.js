@@ -39,6 +39,8 @@ const popupCaption = imagePopup.querySelector(".popup__caption");
 
 const popups = document.querySelectorAll(".popup");
 
+const openedPopup = document.querySelector(".popup_opened");
+
 const closeButtons = document.querySelectorAll(".popup__close");
 
 const profileEditBtn = document.querySelector("#profile-edit-button");
@@ -121,6 +123,7 @@ function handleAddCardEditSubmit(e) {
   const name = cardNameInput.value;
   const link = cardUrlInput.value;
   renderCard({ name, link }, cardListEl);
+  addCardFormElement.reset();
   closePopup(addCardPopup);
 }
 
@@ -145,14 +148,19 @@ addNewCardButton.addEventListener("click", () => openPopup(addCardPopup));
 
 initialCards.forEach((cardData) => renderCard(cardData, cardListEl));
 
-function popupCloseOnKeyPress(evt) {
-  document.removeEventListener("keydown", popupCloseOnKeyPress);
-}
-
 document.addEventListener("keydown", (evt) => {
   if (evt.key === "Escape") {
     closePopup(profileEditPopup);
+  }
+});
+
+document.addEventListener("keydown", (evt) => {
+  if (evt.key === "Escape") {
     closePopup(addCardPopup);
+  }
+});
+document.addEventListener("keydown", (evt) => {
+  if (evt.key === "Escape") {
     closePopup(imagePopup);
   }
 });
