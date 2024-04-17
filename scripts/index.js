@@ -42,7 +42,7 @@ const closeButtons = document.querySelectorAll(".popup__close");
 const profileEditBtn = document.querySelector("#profile-edit-button");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
-const profilePopupCloseBtn = profileEditPopup.querySelector("#popup-close-btn");
+//const profilePopupCloseBtn = profileEditPopup.querySelector("#popup-close-btn");
 const imagePopupCloseBtn = imagePopup.querySelector("#popup-close-btn");
 const addCardPopupCloseBtn = addCardPopup.querySelector("#popup-close-btn");
 const profileTitleInput = document.querySelector("#profile-title-input");
@@ -140,41 +140,31 @@ closeButtons.forEach((button) => {
 });
 
 addNewCardButton.addEventListener("click", () => openPopup(addCardPopup));
-addCardPopupCloseBtn.addEventListener("click", () => closePopup(addCardPopup));
-imagePopupCloseBtn.addEventListener("click", () => closePopup(imagePopup));
 
 initialCards.forEach((cardData) => renderCard(cardData, cardListEl));
 
 document.addEventListener("keydown", (evt) => {
   if (evt.key === "Escape") {
-    profileEditPopup.classList.remove("popup_opened");
+    closePopup(profileEditPopup);
   }
 });
 document.addEventListener("keydown", (evt) => {
   if (evt.key === "Escape") {
-    addCardPopup.classList.remove("popup_opened");
+    closePopup(addCardPopup);
   }
 });
 document.addEventListener("keydown", (evt) => {
   if (evt.key === "Escape") {
-    imagePopup.classList.remove("popup_opened");
+    closePopup(imagePopup);
   }
 });
 
-profileEditPopup.addEventListener("click", (evt) => {
-  if (evt.target == profileEditPopup) {
-    profileEditPopup.classList.remove("popup_opened");
-  }
-});
+const popups = document.querySelectorAll(".popup");
 
-addCardPopup.addEventListener("click", (evt) => {
-  if (evt.target == addCardPopup) {
-    addCardPopup.classList.remove("popup_opened");
-  }
-});
-
-imagePopup.addEventListener("click", (evt) => {
-  if (evt.target == imagePopup) {
-    imagePopup.classList.remove("popup_opened");
-  }
+popups.forEach((popup) => {
+  popup.addEventListener("mousedown", (evt) => {
+    if (evt.target.classList.contains("popup_opened")) {
+      closePopup(popup);
+    }
+  });
 });
