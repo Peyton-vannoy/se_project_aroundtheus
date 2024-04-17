@@ -157,17 +157,6 @@ document.addEventListener("keydown", (evt) => {
   }
 });
 
-// document.addEventListener("keydown", (evt) => {
-//   if (evt.key === "Escape") {
-//     closePopup(addCardPopup);
-//   }
-// });
-// document.addEventListener("keydown", (evt) => {
-//   if (evt.key === "Escape") {
-//     closePopup(imagePopup);
-//   }
-// });
-
 popups.forEach((popup) => {
   popup.addEventListener("mousedown", (evt) => {
     if (evt.target.classList.contains("popup_opened")) {
