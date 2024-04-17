@@ -148,22 +148,27 @@ addNewCardButton.addEventListener("click", () => openPopup(addCardPopup));
 
 initialCards.forEach((cardData) => renderCard(cardData, cardListEl));
 
-document.addEventListener("keydown", (evt) => {
-  if (evt.key === "Escape") {
-    closePopup(profileEditPopup);
-  }
-});
+function openPopup(popup) {
+  popup.classList.add("popup_opened");
+  document.addEventListener("keydown", (evt) => {
+    if (evt.key === "Escape") {
+      closePopup(profileEditPopup);
+      closePopup(addCardPopup);
+      closePopup(imagePopup);
+    }
+  });
+}
 
-document.addEventListener("keydown", (evt) => {
-  if (evt.key === "Escape") {
-    closePopup(addCardPopup);
-  }
-});
-document.addEventListener("keydown", (evt) => {
-  if (evt.key === "Escape") {
-    closePopup(imagePopup);
-  }
-});
+function closePopup(popup) {
+  popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", (evt) => {
+    if (evt.key === "Escape") {
+      closePopup(profileEditPopup);
+      closePopup(addCardPopup);
+      closePopup(imagePopup);
+    }
+  });
+}
 
 popups.forEach((popup) => {
   popup.addEventListener("mousedown", (evt) => {
