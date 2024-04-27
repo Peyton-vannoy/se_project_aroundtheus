@@ -115,6 +115,13 @@ function handleEscape(evt) {
   }
 }
 
+function handleEscape(evt) {
+  if (evt.key === "Escape") {
+    const openedPopup = document.querySelector(".popup_opened");
+    closePopup(openedPopup);
+  }
+}
+
 const handleLikeIcon = (evt) => {
   evt.target.classList.toggle("card__like-button_active");
 };
