@@ -74,7 +74,7 @@
             class="popup__error"
             id="profile-description-input-error"
           ></span>
-          <button class="popup__button">Save</button>
+          <button class="button popup__button">Save</button>
         </form>
       </div>
     </div>
@@ -85,7 +85,7 @@
         <p class="popup__heading">New Place</p>
         <form class="popup__form" id="add-card-form">
           <input
-            class="popup__input popup__input_type_name"
+            class="popup__input popup__description_type_name"
             type="text"
             id="profile-title-input"
             name="name"
@@ -94,13 +94,10 @@
             maxlength="30"
             required
           />
-          <span
-            class="popup__error"
-            id="profile-description-input-error"
-          ></span>
+          <span class="popup__error" id="profile-title-input-error"></span>
           <input
             class="popup__input popup__input_type_url"
-            type="text"
+            type="url"
             id="profile-description-input"
             name="url"
             placeholder="Image URL"
@@ -109,7 +106,7 @@
           <span class="popup__error" id="profile-description-input-error"
             >please enter a web address.</span
           >
-          <button class="popup__button popup__button_disabled" disabled>
+          <button class="button popup__button popup__button_disabled" disabled>
             Create
           </button>
         </form>
@@ -136,7 +133,7 @@
       </li>
     </template>
 
-    <script src="./scripts/index.js"></script>
+    <script src="./pages/index.js" type="module"></script>
     <script src="./scripts/validation.js"></script>
   </body>
 </html>

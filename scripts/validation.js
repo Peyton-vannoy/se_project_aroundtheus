@@ -28,14 +28,21 @@ const hasInvalidInput = (inputList) => {
 };
 
 const toggleButtonState = (inputEls, submitButton, { inactiveButtonClass }) => {
-  if (hasInvalidInput(inputEls)) {
+  let foundInvalid = false;
+
+  inputEls.forEach((inputEl) => {
+    if (!inputEl.validity.valid) {
+      foundInvalid = true;
+    }
+  });
+
+  if (foundInvalid) {
     submitButton.classList.add(inactiveButtonClass);
     submitButton.disabled = true;
-    return;
+  } else {
+    submitButton.classList.remove(inactiveButtonClass);
+    submitButton.disabled = false;
   }
-
-  submitButton.classList.remove(inactiveButtonClass);
-  submitButton.disabled = false;
 };
 
 const setEventListeners = (formEl, options) => {
@@ -59,16 +66,6 @@ const enableValidation = (options) => {
     });
 
     setEventListeners(formEl, options);
-    //look for all inputs inside of form
-    //loop throiugh all the inputsa to see if all are valid
-    //if input is not valid
-    //get validation message
-    //add error class to input
-    //display error message
-    // display button
-    // if inputs are valid
-    //enable button
-    //reset error message
   });
 };
 

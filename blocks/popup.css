@@ -94,6 +94,16 @@
   font-weight: 400;
   line-height: 17px;
 }
+.popup__description_type_name {
+  margin-bottom: 5px;
+  padding: 0 0 13px;
+  border: none;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  color: #000;
+  font-weight: 400;
+  line-height: 17px;
+}
 
 .popup__profile_description {
   margin-bottom: 5px;
@@ -119,13 +129,12 @@
   color: #000;
 }
 
-.popup__button {
+.button {
   background-color: #000;
   color: #fff;
   width: 100%;
   height: 50px;
   padding: 0;
-  /* margin-top: 19px; */
   border-radius: 2px;
   font-size: 18px;
   line-height: 21.78px;
@@ -138,7 +147,10 @@
 }
 
 .popup__button:disabled {
-  opacity: 80%;
+  background-color: #fff;
+  border: 1px solid #000;
+  color: #000;
+  opacity: 0.2;
 }
 
 @media screen and (max-width: 600px) {
@@ -164,10 +176,6 @@
     padding: 25px 22px 0;
     height: 22px;
     margin-bottom: 75px;
-  }
-
-  .popup__profile_description {
-    margin-bottom: 45px;
   }
 
   .popup__button {
