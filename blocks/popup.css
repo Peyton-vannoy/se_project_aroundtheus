@@ -73,7 +73,7 @@
   flex-direction: column;
 }
 
-.popup__profile_title {
+.popup__input_profile_title {
   margin-bottom: 5px;
   padding: 0 0 13px;
   border: none;
@@ -94,7 +94,7 @@
   font-weight: 400;
   line-height: 17px;
 }
-.popup__description_type_name {
+.popup__input_description_type_name {
   margin-bottom: 5px;
   padding: 0 0 13px;
   border: none;
@@ -105,7 +105,7 @@
   line-height: 17px;
 }
 
-.popup__profile_description {
+.popup__input_profile_description {
   margin-bottom: 5px;
   padding: 0 0 13px;
   border: none;
@@ -151,6 +151,7 @@
   border: 1px solid #000;
   color: #000;
   opacity: 0.2;
+  cursor: default;
 }
 
 @media screen and (max-width: 600px) {

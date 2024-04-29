@@ -62,7 +62,7 @@ const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 const cardNameInput = addCardFormElement.querySelector(
-  ".popup__description_type_name"
+  ".popup__input_description_type_name"
 );
 const cardUrlInput = addCardFormElement.querySelector(".popup__input_type_url");
 
@@ -106,13 +106,6 @@ function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", handleEscape);
-}
-
-function handleEscape(evt) {
-  if (evt.key === "Escape") {
-    const openedPopup = document.querySelector(".popup_opened");
-    closePopup(openedPopup);
-  }
 }
 
 function handleEscape(evt) {
@@ -178,6 +171,7 @@ function handleAddCardEditSubmit(e) {
   renderCard({ name, link }, cardListEl);
   addCardFormElement.reset();
   closePopup(addCardPopup);
+  toggleButtonState();
 }
 
 /*--------------------------------------------------------------*/

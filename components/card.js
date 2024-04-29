@@ -1,7 +1,7 @@
 class Card {
-  constructor(data, cardSelector, handleImageClick) {
-    this._name = data.name;
-    this._link = data.link;
+  constructor(cardData, cardSelector, handleImageClick) {
+    this._name = cardData.name;
+    this._link = cardData.link;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
   }
@@ -10,9 +10,7 @@ class Card {
     // ".card__like-button"
     this._cardElement
       .querySelector(".card__like-button")
-      .addEventListener("click", () => {
-        this._handleLikeIcon(this);
-      });
+      .addEventListener("click", this._handleLikeIcon);
 
     // ".card__delete-button"
     this._cardElement
@@ -28,22 +26,11 @@ class Card {
       });
   }
 
-  _handleLikeIcon() {
-    this._form
-      .querySelector(".card__like-button")
-      .classList.toggle("card__like-button_active");
-  }
+  _handleLikeIcon = () => {};
 
   _handleDeleteCard() {
     this._cardElement.remove();
     this._cardElement = null;
-  }
-
-  _handlePreviewPicture() {
-    cardImageEl.src = cardData.link;
-    cardImageEl.alt = `${cardData.link}`;
-    popupCaption.textContent = cardData.name;
-    openPopup(imagePopup);
   }
 
   _getTemplate() {
