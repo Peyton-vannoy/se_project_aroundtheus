@@ -39,8 +39,10 @@ const cardData = {
 
 const profileEditPopup = document.querySelector("#profile-edit-popup");
 const addCardPopup = document.querySelector("#add-card-popup");
+
 const profileEditForm = profileEditPopup.querySelector(".popup__form");
 const addCardFormElement = addCardPopup.querySelector(".popup__form");
+
 const imagePopup = document.querySelector("#image-popup");
 const popupImageElement = imagePopup.querySelector(".popup__image");
 const popupCaption = imagePopup.querySelector(".popup__caption");
@@ -71,9 +73,11 @@ const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 
 const cardSelector = "#card-template";
+
 const card = new Card(cardData, cardSelector);
 
 card.getView();
+
 /*---------------------------------------------------------------------*/
 /*------------------------------Validation-----------------------------*/
 /*---------------------------------------------------------------------*/
@@ -93,7 +97,10 @@ const editFormValidator = new FormValidator(
   validationSettings,
   editFormElement
 );
+editFormValidator.enableValidation();
+
 const addFormValidator = new FormValidator(validationSettings, addFormElement);
+addFormValidator.enableValidation();
 /*-------------------------------------------------------------*/
 /*-----------------------Functions-----------------------------*/
 /*-------------------------------------------------------------*/
@@ -168,10 +175,13 @@ function handleAddCardEditSubmit(e) {
   e.preventDefault();
   const name = cardNameInput.value;
   const link = cardUrlInput.value;
-  renderCard({ name, link }, cardListEl);
+  const cardData = { name, link };
+
+  const viewCard = createCard(cardData);
+  renderCard(viewCard, cardListEl);
   addCardFormElement.reset();
   closePopup(addCardPopup);
-  toggleButtonState();
+  addFormValidator.toggleButtonState();
 }
 
 /*--------------------------------------------------------------*/

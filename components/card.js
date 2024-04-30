@@ -1,6 +1,6 @@
 class Card {
   constructor(cardData, cardSelector, handleImageClick) {
-    this._name = cardData.name;
+    this._cardData = cardData;
     this._link = cardData.link;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
@@ -26,7 +26,11 @@ class Card {
       });
   }
 
-  _handleLikeIcon = () => {};
+  _handleLikeIcon = () => {
+    this._cardElement
+      .querySelector(".card__like-button")
+      .classList.toggle("card__like-button_active");
+  };
 
   _handleDeleteCard() {
     this._cardElement.remove();
