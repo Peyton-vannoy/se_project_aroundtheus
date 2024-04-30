@@ -138,11 +138,11 @@ const handlePreviewPicture = (cardData) => {
 };
 
 function renderCard(cardData, wrapper) {
-  const cardElement = getCardElement(cardData);
+  const cardElement = createCard(cardData);
   wrapper.prepend(cardElement);
 }
 
-function getCardElement(cardData) {
+function createCard(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImageEl = cardElement.querySelector(".card__image");
   const cardTitleEl = cardElement.querySelector(".card__title");
