@@ -1,9 +1,9 @@
 class Card {
-  constructor(cardData, cardSelector, handleImageClick) {
-    this._cardData = cardData;
+  constructor(cardData, cardSelector, handlePreviewPicture) {
+    this._name = cardData.name;
     this._link = cardData.link;
     this._cardSelector = cardSelector;
-    this._handleImageClick = handleImageClick;
+    this._handlePreviewPicture = handlePreviewPicture;
   }
 
   _setEventListeners() {
@@ -22,7 +22,7 @@ class Card {
     this._cardElement
       .querySelector(".card__image")
       .addEventListener("click", () => {
-        this._handleImageClick(this);
+        this._handlePreviewPicture(this);
       });
   }
 
@@ -47,12 +47,14 @@ class Card {
   getView() {
     this._cardElement = this._getTemplate();
 
-    this._cardElement.querySelector(
-      ".card__image"
-    ).style.backgroundImage = `url(${this._link})`;
-    this._cardElement.querySelector(".card__title").textContent = this.name;
+    this._cardImageEl = this._cardElement.querySelector(".card__image");
+    this._cardTitleEl = this._cardElement.querySelector(".card__title");
 
+    this._cardImageEl.src = this._link;
+    this._cardImageEl.alt = this._name;
+    this._cardTitleEl.textContent = this._name;
     this._setEventListeners();
+    return this._cardElement;
   }
 }
 

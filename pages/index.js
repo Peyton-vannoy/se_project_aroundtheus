@@ -28,11 +28,6 @@ const initialCards = [
   },
 ];
 
-const cardData = {
-  name: "Yosemite Valley",
-  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-};
-
 /* -----------------------------------------------------------------------*/
 /*                                 Elements                               */
 /* -----------------------------------------------------------------------*/
@@ -49,16 +44,14 @@ const popupCaption = imagePopup.querySelector(".popup__caption");
 
 const popups = document.querySelectorAll(".popup");
 
-const openedPopup = document.querySelector(".popup_opened");
-
 const closeButtons = document.querySelectorAll(".popup__close");
 
-const profileEditBtn = document.querySelector("#profile-edit-button");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
-const imagePopupCloseBtn = imagePopup.querySelector("#popup-close-btn");
-const addCardPopupCloseBtn = addCardPopup.querySelector("#popup-close-btn");
+
 const profileTitleInput = document.querySelector("#profile-title-input");
+
+const profileEditBtn = document.querySelector("#profile-edit-button");
 const addNewCardButton = document.querySelector(".profile__add-button");
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
@@ -69,14 +62,8 @@ const cardNameInput = addCardFormElement.querySelector(
 const cardUrlInput = addCardFormElement.querySelector(".popup__input_type_url");
 
 const cardListEl = document.querySelector(".cards__list");
-const cardTemplate =
-  document.querySelector("#card-template").content.firstElementChild;
 
 const cardSelector = "#card-template";
-
-const card = new Card(cardData, cardSelector);
-
-card.getView();
 
 /*---------------------------------------------------------------------*/
 /*------------------------------Validation-----------------------------*/
@@ -122,18 +109,10 @@ function handleEscape(evt) {
   }
 }
 
-const handleLikeIcon = (evt) => {
-  evt.target.classList.toggle("card__like-button_active");
-};
-
-const handleDeleteCard = (evt) => {
-  evt.target.closest(".card").remove();
-};
-
 const handlePreviewPicture = (cardData) => {
-  popupImageElement.src = cardData.link;
-  popupImageElement.alt = `${cardData.link}`;
-  popupCaption.textContent = cardData.name;
+  popupImageElement.src = cardData._link;
+  popupImageElement.alt = `${cardData._link}`;
+  popupCaption.textContent = cardData._name;
   openPopup(imagePopup);
 };
 
@@ -143,21 +122,9 @@ function renderCard(cardData, wrapper) {
 }
 
 function createCard(cardData) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImageEl = cardElement.querySelector(".card__image");
-  const cardTitleEl = cardElement.querySelector(".card__title");
-  const likeButton = cardElement.querySelector(".card__like-button");
-  const deleteButton = cardElement.querySelector(".card__delete-button");
+  const card = new Card(cardData, cardSelector, handlePreviewPicture);
 
-  cardImageEl.addEventListener("click", () => handlePreviewPicture(cardData));
-
-  likeButton.addEventListener("click", handleLikeIcon);
-  deleteButton.addEventListener("click", handleDeleteCard);
-
-  cardImageEl.src = cardData.link;
-  cardImageEl.alt = cardData.name;
-  cardTitleEl.textContent = cardData.name;
-  return cardElement;
+  return card.getView();
 }
 
 /*--------------------------------------------------------------*/
@@ -177,11 +144,9 @@ function handleAddCardEditSubmit(e) {
   const link = cardUrlInput.value;
   const cardData = { name, link };
 
-  const viewCard = createCard(cardData);
-  renderCard(viewCard, cardListEl);
+  renderCard(cardData, cardListEl);
   addCardFormElement.reset();
   closePopup(addCardPopup);
-  addFormValidator.toggleButtonState();
 }
 
 /*--------------------------------------------------------------*/
