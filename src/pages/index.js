@@ -4,70 +4,29 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-  },
-];
-
-/* -----------------------------------------------------------------------*/
-/*                                 Elements                               */
-/* -----------------------------------------------------------------------*/
-
-const profileEditPopup = document.querySelector("#profile-edit-popup");
-const addCardPopup = document.querySelector("#add-card-popup");
-
-const profileEditForm = profileEditPopup.querySelector(".popup__form");
-const addCardFormElement = addCardPopup.querySelector(".popup__form");
-
-const imagePopup = document.querySelector("#image-popup");
-const popupImageElement = imagePopup.querySelector(".popup__image");
-const popupCaption = imagePopup.querySelector(".popup__caption");
-
-const popups = document.querySelectorAll(".popup");
-
-const closeButtons = document.querySelectorAll(".popup__close");
-
-const profileTitle = document.querySelector(".profile__title");
-const profileDescription = document.querySelector(".profile__description");
-
-const profileTitleInput = document.querySelector("#profile-title-input");
-
-const profileEditBtn = document.querySelector("#profile-edit-button");
-const addNewCardButton = document.querySelector(".profile__add-button");
-const profileDescriptionInput = document.querySelector(
-  "#profile-description-input"
-);
-const cardNameInput = addCardFormElement.querySelector(
-  ".popup__input_description_type_name"
-);
-const cardUrlInput = addCardFormElement.querySelector(".popup__input_type_url");
-
-const cardListEl = document.querySelector(".cards__list");
-
-const cardSelector = "#card-template";
+import UserInfo from "../components/UserInfo.js";
+import {
+  profileEditPopup,
+  addCardPopup,
+  profileEditForm,
+  addCardFormElement,
+  profileEditBtn,
+  closeButtons,
+  addNewCardButton,
+  initialCards,
+  cardListEl,
+  cardSelector,
+  popups,
+  profileTitleInput,
+  popupImageElement,
+  popupCaption,
+  imagePopup,
+  profileTitle,
+  profileDescriptionInput,
+  profileDescription,
+  cardNameInput,
+  cardUrlInput,
+} from "../components/constants.js";
 
 /*---------------------------------------------------------------------*/
 /*------------------------------Validation-----------------------------*/
@@ -114,9 +73,8 @@ const section = new Section(
   {
     items: [],
     renderer: (item) => {
-      // Create DOM element based on item
       const element = document.createElement("div");
-      // Customize element based on item
+
       section.addItem(element);
     },
   },
@@ -124,6 +82,14 @@ const section = new Section(
 );
 
 section.renderItems();
+
+const userInfo = new UserInfo(".profile__title", ".profile__description");
+
+const newUserData = {
+  name: "Jacques Cousteau",
+  job: "Explorer",
+};
+userInfo.setUserInfo(newUserData);
 
 /*-------------------------------------------------------------*/
 /*-----------------------Functions-----------------------------*/
