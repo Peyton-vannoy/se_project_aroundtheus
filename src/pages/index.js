@@ -1,6 +1,9 @@
+import "./index.css";
 import Card from "../components/card.js";
 import FormValidator from "../components/FormValidator.js";
-import "./index.css";
+import Section from "../components/Section.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 
 const initialCards = [
   {
@@ -89,6 +92,39 @@ editFormValidator.enableValidation();
 
 const addFormValidator = new FormValidator(validationSettings, addFormElement);
 addFormValidator.enableValidation();
+
+const editProfilePopup = new PopupWithForm(
+  "#profile-edit-popup",
+  (formData) => {
+    console.log(formData);
+  }
+);
+
+const newCardPopup = new PopupWithForm("#add-card-popup", (formData) => {
+  console.log(formData);
+});
+
+editProfilePopup.setEventListeners();
+newCardPopup.setEventListeners();
+
+const popupImage = new PopupWithImage("#image-popup");
+popupImage.setEventListeners();
+
+const section = new Section(
+  {
+    items: [],
+    renderer: (item) => {
+      // Create DOM element based on item
+      const element = document.createElement("div");
+      // Customize element based on item
+      section.addItem(element);
+    },
+  },
+  ".container-selector"
+);
+
+section.renderItems();
+
 /*-------------------------------------------------------------*/
 /*-----------------------Functions-----------------------------*/
 /*-------------------------------------------------------------*/
