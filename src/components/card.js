@@ -22,7 +22,7 @@ class Card {
     this._cardElement
       .querySelector(".card__image")
       .addEventListener("click", () => {
-        this._handlePreviewPicture(this);
+        this._handlePreviewPicture({ link: this._link, name: this._name });
       });
   }
 

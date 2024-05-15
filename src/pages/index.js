@@ -7,6 +7,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import {
   profileEditPopup,
+  selectors,
   addCardPopup,
   profileEditForm,
   addCardFormElement,
@@ -52,44 +53,39 @@ editFormValidator.enableValidation();
 const addFormValidator = new FormValidator(validationSettings, addFormElement);
 addFormValidator.enableValidation();
 
-const editProfilePopup = new PopupWithForm(
-  "#profile-edit-popup",
-  (formData) => {
-    console.log(formData);
-  }
-);
-
-const newCardPopup = new PopupWithForm("#add-card-popup", (formData) => {
-  console.log(formData);
-});
-
-editProfilePopup.setEventListeners();
-newCardPopup.setEventListeners();
-
-const popupImage = new PopupWithImage("#image-popup");
-popupImage.setEventListeners();
-
-const section = new Section(
+const CardPreviewPopup = new PopupWithImage(selectors.previewPopup);
+const CardSection = new Section(
   {
-    items: [],
-    renderer: (item) => {
-      const element = document.createElement("div");
-
-      section.addItem(element);
+    renderer: (cardData) => {
+      const cardElement = new Card(
+        {
+          cardData,
+          handlePreviewPicture: (imgData) => {
+            CardPreviewPopup.open(imgData);
+          },
+        },
+        selectors.cardTemplate
+      );
+      CardSection.addItem(cardElement.getView());
     },
   },
-  ".container-selector"
+  selectors.cardSection
 );
 
-section.renderItems();
+CardSection.renderItems(initialCards);
+CardPreviewPopup.setEventListeners();
 
-const userInfo = new UserInfo(".profile__title", ".profile__description");
+// const userInfo = new UserInfo({
+//   nameSelector: ".profile__title",
+//   jobSelector: ".profile__description",
+// });
 
-const newUserData = {
-  name: "Jacques Cousteau",
-  job: "Explorer",
-};
-userInfo.setUserInfo(newUserData);
+// const currentUserInfo = userInfo.getUserInfo();
+
+// userInfo.setUserInfo({
+//   name: "New Name",
+//   job: "New Job",
+// });
 
 /*-------------------------------------------------------------*/
 /*-----------------------Functions-----------------------------*/
