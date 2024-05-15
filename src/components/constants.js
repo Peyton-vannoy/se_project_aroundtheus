@@ -63,7 +63,7 @@ export const cardListEl = document.querySelector(".cards__list");
 export const cardSelector = "#card-template";
 
 export const selectors = {
-  cardSection: "cards__list",
+  cardSection: ".cards__list",
   cardTemplate: "#card-template",
   previewPopup: "#image-popup",
 };

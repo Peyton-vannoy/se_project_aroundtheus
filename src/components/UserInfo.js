@@ -5,9 +5,11 @@ class UserInfo {
   }
 
   getUserInfo() {
+    const userName = this._nameElement.textContent;
+    const userJob = this._jobElement.textContent;
     return {
-      name: this._nameElement.textContent,
-      job: this._jobElement.textContent,
+      name: userName,
+      job: userJob,
     };
   }
 
