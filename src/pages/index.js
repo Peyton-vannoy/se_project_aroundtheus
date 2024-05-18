@@ -55,13 +55,9 @@ addFormValidator.enableValidation();
 
 const editProfilePopup = new PopupWithForm(
   "#profile-edit-popup",
-  (cardData) => {
-    console.log("Edit Profile Form Data:", cardData);
-  }
+  handleFormSubmit
 );
-const addImagePopup = new PopupWithForm("#add-card-popup", (cardData) => {
-  console.log("Add Image Form Data:", cardData);
-});
+const addImagePopup = new PopupWithForm("#add-card-popup", handleFormSubmit);
 
 editProfilePopup.setEventListeners();
 addImagePopup.setEventListeners();
@@ -94,13 +90,17 @@ const userInfo = new UserInfo({
   jobSelector: ".profile__description",
 });
 
-// const userData = userInfo.getUserInfo();
+const userData = userInfo.getUserInfo();
 
-// userInfo.setUserInfo("New User", "Developer");
+userInfo.setUserInfo({ name: "Jacques Cousteau", job: "Explorer" });
 
 /*-------------------------------------------------------------*/
 /*-----------------------Functions-----------------------------*/
 /*-------------------------------------------------------------*/
+
+function handleFormSubmit(cardData) {
+  userInfo.setUserInfo(cardData);
+}
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
@@ -119,23 +119,20 @@ function handleEscape(evt) {
   }
 }
 
-// const handlePreviewPicture = (cardData) => {
-//   popupImageElement.src = cardData._link;
-//   popupImageElement.alt = `${cardData._link}`;
-//   popupCaption.textContent = cardData._name;
-//   openPopup(imagePopup);
-// };
+const handlePreviewPicture = (cardData) => {
+  CardPreviewPopup.open(cardData);
+};
 
-// function renderCard(cardData, wrapper) {
-//   const cardElement = createCard(cardData);
-//   wrapper.prepend(cardElement);
-// }
+function renderCard(cardData, wrapper) {
+  const cardElement = createCard(cardData);
+  wrapper.prepend(cardElement);
+}
 
-// function createCard(cardData) {
-//   const card = new Card(cardData, { handlePreviewPicture }, cardSelector);
+function createCard(cardData) {
+  const card = new Card(cardData, { handlePreviewPicture }, cardSelector);
 
-//   return card.getView();
-// }
+  return card.getView();
+}
 
 /*--------------------------------------------------------------*/
 /*---------------------Event Handlers---------------------------*/
@@ -170,18 +167,17 @@ profileEditBtn.addEventListener("click", () => {
   profileDescriptionInput.value = profileDescription.textContent;
   openPopup(profileEditPopup);
 });
-
-closeButtons.forEach((button) => {
-  const popup = button.closest(".popup");
-  button.addEventListener("click", () => closePopup(popup));
-});
-
 addNewCardButton.addEventListener("click", () => openPopup(addCardPopup));
 
-popups.forEach((popup) => {
-  popup.addEventListener("mousedown", (evt) => {
-    if (evt.target.classList.contains("popup_opened")) {
-      closePopup(popup);
-    }
-  });
-});
+// closeButtons.forEach((button) => {
+//   const popup = button.closest(".popup");
+//   button.addEventListener("click", () => closePopup(popup));
+// });
+
+// popups.forEach((popup) => {
+//   popup.addEventListener("mousedown", (evt) => {
+//     if (evt.target.classList.contains("popup_opened")) {
+//       closePopup(popup);
+//     }
+//   });
+// });

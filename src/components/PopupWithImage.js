@@ -3,8 +3,8 @@ import Popup from "./Popup";
 class PopupWithImage extends Popup {
   constructor(popupSelector) {
     super(popupSelector);
-    this._popupImageElement = this._popupElement.querySelector(".popup__image");
-    this._popupCaption = this._popupElement.querySelector(".popup__caption");
+    this._popupImageElement = this._popup.querySelector(".popup__image");
+    this._popupCaption = this._popup.querySelector(".popup__caption");
   }
   open(cardData) {
     this._popupImageElement.src = cardData.link;
