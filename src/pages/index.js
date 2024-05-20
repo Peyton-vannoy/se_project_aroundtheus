@@ -55,11 +55,15 @@ addFormValidator.enableValidation();
 
 const editProfilePopup = new PopupWithForm(
   "#profile-edit-popup",
-  handleFormSubmit
+  handleProfileEditSubmit
 );
-const addImagePopup = new PopupWithForm("#add-card-popup", handleFormSubmit);
+const addImagePopup = new PopupWithForm(
+  "#add-card-popup",
+  handleAddCardEditSubmit
+);
 
 editProfilePopup.setEventListeners();
+
 addImagePopup.setEventListeners();
 
 const CardPreviewPopup = new PopupWithImage(selectors.previewPopup);
@@ -90,34 +94,9 @@ const userInfo = new UserInfo({
   jobSelector: ".profile__description",
 });
 
-const userData = userInfo.getUserInfo();
-
-userInfo.setUserInfo({ name: "Jacques Cousteau", job: "Explorer" });
-
 /*-------------------------------------------------------------*/
 /*-----------------------Functions-----------------------------*/
 /*-------------------------------------------------------------*/
-
-function handleFormSubmit(cardData) {
-  userInfo.setUserInfo(cardData);
-}
-
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
-  document.addEventListener("keydown", handleEscape);
-}
-
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", handleEscape);
-}
-
-function handleEscape(evt) {
-  if (evt.key === "Escape") {
-    const openedPopup = document.querySelector(".popup_opened");
-    closePopup(openedPopup);
-  }
-}
 
 const handlePreviewPicture = (cardData) => {
   CardPreviewPopup.open(cardData);
@@ -138,22 +117,21 @@ function createCard(cardData) {
 /*---------------------Event Handlers---------------------------*/
 /*--------------------------------------------------------------*/
 
-function handleProfileEditSubmit(e) {
-  e.preventDefault();
-  profileTitle.textContent = profileTitleInput.value;
-  profileDescription.textContent = profileDescriptionInput.value;
-  closePopup(profileEditPopup);
+function handleProfileEditSubmit(inputValues) {
+  const { name, job } = inputValues;
+
+  userInfo.setUserInfo({ name, job });
+
+  editProfilePopup.close();
 }
 
-function handleAddCardEditSubmit(e) {
-  e.preventDefault();
-  const name = cardNameInput.value;
-  const link = cardUrlInput.value;
-  const cardData = { name, link };
+function handleAddCardEditSubmit(inputValues) {
+  const { name, link } = inputValues;
+  const cardData = { name: name, link: link };
 
   renderCard(cardData, cardListEl);
   addCardFormElement.reset();
-  closePopup(addCardPopup);
+  addImagePopup.close();
 }
 
 /*--------------------------------------------------------------*/
@@ -162,22 +140,20 @@ function handleAddCardEditSubmit(e) {
 
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 addCardFormElement.addEventListener("submit", handleAddCardEditSubmit);
-profileEditBtn.addEventListener("click", () => {
-  profileTitleInput.value = profileTitle.textContent;
-  profileDescriptionInput.value = profileDescription.textContent;
-  openPopup(profileEditPopup);
+// profileEditBtn.addEventListener("click", () => {
+//   profileTitleInput.value = profileTitle.textContent;
+//   profileDescriptionInput.value = profileDescription.textContent;
+//   // openPopup(profileEditPopup);
+// });
+addNewCardButton.addEventListener("click", () => {
+  addImagePopup.open();
 });
-addNewCardButton.addEventListener("click", () => openPopup(addCardPopup));
 
-// closeButtons.forEach((button) => {
-//   const popup = button.closest(".popup");
-//   button.addEventListener("click", () => closePopup(popup));
-// });
+profileEditBtn.addEventListener("click", () => {
+  const currentUser = userInfo.getUserInfo();
 
-// popups.forEach((popup) => {
-//   popup.addEventListener("mousedown", (evt) => {
-//     if (evt.target.classList.contains("popup_opened")) {
-//       closePopup(popup);
-//     }
-//   });
-// });
+  profileTitleInput.value = currentUser.name.trim();
+  profileDescriptionInput.value = currentUser.job.trim();
+
+  editProfilePopup.open();
+});
