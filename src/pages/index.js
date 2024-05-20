@@ -102,9 +102,9 @@ function renderCard(cardData, wrapper) {
 
 // Handle profile edit form submission
 function handleProfileEditSubmit(inputValues) {
-  const { title, description } = inputValues;
+  const { name, job } = inputValues;
 
-  userInfo.setUserInfo(title, description);
+  userInfo.setUserInfo(name, job);
   editProfilePopup.close();
 }
 
