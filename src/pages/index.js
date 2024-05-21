@@ -109,8 +109,8 @@ function handleProfileEditSubmit(inputValues) {
 }
 
 // Handle add card form submission
-function handleAddCardEditSubmit(inputValues) {
-  renderCard(inputValues, cardListEl);
+function handleAddCardEditSubmit(data) {
+  renderCard(data, cardSelector);
   const { name, link } = inputValues;
   const cardData = {
     name: name,
