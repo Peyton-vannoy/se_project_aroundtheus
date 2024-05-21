@@ -64,10 +64,13 @@ addImagePopup.setEventListeners();
 cardPreviewPopup.setEventListeners();
 
 // Initialize user info
-const userInfo = new UserInfo({
-  nameSelector: ".profile__title",
-  jobSelector: ".profile__description",
-});
+const userInfo = new UserInfo(".profile__title", ".profile__description");
+userInfo.getUserInfo();
+
+const currentUserData = {
+  name: profileTitle.textContent,
+  job: profileDescription.textContent,
+};
 
 // Initialize and render initial card section
 const cardSection = new Section(
@@ -105,11 +108,8 @@ function renderCard(cardData, wrapper) {
 }
 
 // Handle profile edit form submission
-function handleProfileEditSubmit(userData) {
-  userInfo.setUserInfo({
-    name: userData.profileTitle,
-    job: userData.profileDescription,
-  });
+function handleProfileEditSubmit() {
+  userInfo.setUserInfo(currentUserData);
   editProfilePopup.close();
 }
 
@@ -126,10 +126,8 @@ function handleAddCardEditSubmit() {
 // Event listeners
 
 profileEditBtn.addEventListener("click", () => {
-  const currentUser = userInfo.getUserInfo();
-
-  profileTitleInput.value = currentUser.profileTitle;
-  profileDescriptionInput.value = currentUser.profileDescription;
+  profileTitleInput.value = currentUserData.name;
+  profileDescriptionInput.value = currentUserData.job;
 
   editProfilePopup.open();
 });
