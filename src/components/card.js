@@ -19,7 +19,7 @@ class Card {
         this._handleDeleteCard(this);
       });
 
-    this._cardElement
+    this._cardImageEl = this._cardElement
       .querySelector(".card__image")
       .addEventListener("click", () => {
         this._handlePreviewPicture({ link: this._link, name: this._name });

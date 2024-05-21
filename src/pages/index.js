@@ -23,16 +23,8 @@ import {
   cardUrlInput,
   profileTitle,
   profileDescription,
+  validationSettings,
 } from "../components/constants.js";
-
-// Validation settings
-const validationSettings = {
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-};
 
 // Initialize form validators
 const editFormElement = profileEditPopup.querySelector(".popup__form");
@@ -66,11 +58,6 @@ cardPreviewPopup.setEventListeners();
 // Initialize user info
 const userInfo = new UserInfo(".profile__title", ".profile__description");
 userInfo.getUserInfo();
-
-const currentUserData = {
-  name: profileTitle.textContent,
-  job: profileDescription.textContent,
-};
 
 // Initialize and render initial card section
 const cardSection = new Section(
@@ -108,8 +95,8 @@ function renderCard(cardData, wrapper) {
 }
 
 // Handle profile edit form submission
-function handleProfileEditSubmit() {
-  userInfo.setUserInfo(currentUserData);
+function handleProfileEditSubmit(userData) {
+  userInfo.setUserInfo(userData);
   editProfilePopup.close();
 }
 
@@ -126,9 +113,6 @@ function handleAddCardEditSubmit() {
 // Event listeners
 
 profileEditBtn.addEventListener("click", () => {
-  profileTitleInput.value = currentUserData.name;
-  profileDescriptionInput.value = currentUserData.job;
-
   editProfilePopup.open();
 });
 

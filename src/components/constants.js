@@ -67,3 +67,12 @@ export const selectors = {
   cardTemplate: "#card-template",
   previewPopup: "#image-popup",
 };
+
+// Validation settings
+export const validationSettings = {
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
