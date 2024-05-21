@@ -19,6 +19,10 @@ import {
   cardSelector,
   profileTitleInput,
   profileDescriptionInput,
+  cardNameInput,
+  cardUrlInput,
+  profileTitle,
+  profileDescription,
 } from "../components/constants.js";
 
 // Validation settings
@@ -84,8 +88,8 @@ function createCard(cardData) {
   const card = new Card(
     cardData,
     {
-      handlePreviewPicture: (data) => {
-        cardPreviewPopup.open(data);
+      handlePreviewPicture: (cardData) => {
+        cardPreviewPopup.open(cardData);
       },
     },
     cardSelector
@@ -101,37 +105,31 @@ function renderCard(cardData, wrapper) {
 }
 
 // Handle profile edit form submission
-function handleProfileEditSubmit(inputValues) {
-  const { name, job } = inputValues;
-
-  userInfo.setUserInfo(name, job);
+function handleProfileEditSubmit(userData) {
+  userInfo.setUserInfo({
+    name: userData.profileTitle,
+    job: userData.profileDescription,
+  });
   editProfilePopup.close();
 }
 
 // Handle add card form submission
-function handleAddCardEditSubmit(data) {
-  renderCard(data, cardSelector);
-  const { name, link } = inputValues;
-  const cardData = {
-    name: name,
-    link: link,
-  };
-  const cardElement = createCard(cardData);
-  cardSection.addItem(cardElement);
+function handleAddCardEditSubmit() {
+  const name = cardNameInput.value;
+  const link = cardUrlInput.value;
+  renderCard({ name, link }, cardListEl);
 
   addCardFormElement.reset();
   addImagePopup.close();
 }
 
 // Event listeners
-profileEditForm.addEventListener("submit", handleProfileEditSubmit);
-addCardFormElement.addEventListener("submit", handleAddCardEditSubmit);
 
 profileEditBtn.addEventListener("click", () => {
   const currentUser = userInfo.getUserInfo();
 
-  profileTitleInput.value = currentUser.name;
-  profileDescriptionInput.value = currentUser.job;
+  profileTitleInput.value = currentUser.profileTitle;
+  profileDescriptionInput.value = currentUser.profileDescription;
 
   editProfilePopup.open();
 });
