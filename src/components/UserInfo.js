@@ -1,20 +1,18 @@
-class UserInfo {
-  constructor(titleSelector, descriptionSelector) {
-    this._titleElement = document.querySelector(titleSelector);
-    this._descriptionElement = document.querySelector(descriptionSelector);
+export default class UserInfo {
+  constructor() {
+    this._profileName = document.querySelector(".profile__title");
+    this._profileJob = document.querySelector(".profile__description");
   }
 
   getUserInfo() {
     return {
-      name: this._titleElement.textContent,
-      job: this._descriptionElement.textContent,
+      name: this._profileName.textContent,
+      job: this._profileJob.textContent,
     };
   }
 
-  setUserInfo(userData) {
-    this._titleElement.textContent = userData.title;
-    this._descriptionElement.textContent = userData.description;
+  setUserInfo({ title, description }) {
+    this._profileName.textContent = title;
+    this._profileJob.textContent = description;
   }
 }
-
-export default UserInfo;
