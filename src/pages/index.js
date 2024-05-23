@@ -7,7 +7,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import { initialCards, settings } from "../utils/constants.js";
 
-/* Profile Var */
+/* Profile */
 const profileEditBtn = document.querySelector("#profile-edit-btn");
 const profileTitleInput = document.querySelector("#profile-title-input");
 const profileEditForm = document.forms["profile-form"];
@@ -15,7 +15,7 @@ const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 
-/* Places Var */
+/* Places */
 const placesAddBtn = document.querySelector("#places-add-btn");
 const placeAddForm = document.forms["add-place-form"];
 
