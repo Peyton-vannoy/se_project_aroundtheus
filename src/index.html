@@ -3,137 +3,157 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta content="ie=edge" http-equiv="X-UA-Compatible" />
-    <!-- <link rel="stylesheet" href="./pages/index.css" /> -->
-    <title>Around the U.S</title>
+    <meta name="description" content="Around the US" />
+
+    <title>Around the US</title>
+    <!--<link rel="shortcut icon" href="favicon.ico" /> -->
   </head>
   <body class="page">
     <div class="page__content">
-      <header class="header">
-        <img
-          class="header__logo"
-          src="<%=require('./images/logo.svg')%>"
-          alt="Around the U.S. Logo"
-        />
+      <header class="header page__section">
+        <img src="<%=require("./images/logo_aroundtheus.svg")%>" alt="Around the
+        US logo" class="header__logo" />
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img
-            class="profile__image"
-            src="<%=require('./images/jacques-cousteau.jpg')%>"
-            alt="Avatar"
-          />
+          <img src="<%=require("./images/avatar_j_cousteau.png")%>" alt="Jacques
+          Cousteau Avatar Image" class="profile__image" />
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
             <button
-              type="button"
               class="profile__edit-button"
-              id="profile-edit-button"
+              id="profile-edit-btn"
+              type="button"
+              aria-label="Edit Profile"
             ></button>
             <p class="profile__description">Explorer</p>
           </div>
-          <button type="button" class="profile__add-button"></button>
+          <button
+            class="profile__add-button"
+            id="places-add-btn"
+            type="button"
+            aria-label="Add New Location"
+          ></button>
         </section>
         <section class="cards page__section">
           <ul class="cards__list"></ul>
         </section>
       </main>
       <footer class="footer page__section">
-        <p class="footer__copyright">© 2022 Around The U.S.</p>
+        <p class="footer__copyright">&#169; 2022 Around The U.S.</p>
       </footer>
     </div>
-
-    <!-- Edit popup -->
-    <div class="popup" id="profile-edit-popup">
-      <div class="popup__container">
-        <button class="popup__close" id="popup-close-btn"></button>
-        <p class="popup__heading">Edit Profile</p>
-        <form class="popup__form">
+    <!-- Profile Name Modal -->
+    <div class="modal" id="profile-edit-modal">
+      <div class="modal__container">
+        <button
+          class="modal__close-button"
+          id="profile-modal-close-btn"
+        ></button>
+        <h2 class="modal__heading">Edit Profile</h2>
+        <form class="modal__form" id="profile-form" novalidate>
           <input
-            class="popup__input popup__input_profile_title"
             type="text"
-            id="profile-title-input"
             name="title"
-            placeholder="Jacques Cousteau"
+            class="modal__form-input"
+            placeholder="Name"
+            id="profile-title-input"
+            minlength="2"
             maxlength="40"
-            minlength="2"
-            required
-          />
-          <span class="popup__error" id="profile-title-input-error"></span>
-          <input
-            class="popup__input popup__input_profile_description"
-            type="text"
-            id="profile-description-input"
-            name="description"
-            placeholder="Explorer"
-            maxlength="200"
-            minlength="2"
             required
           />
           <span
-            class="popup__error"
+            class="modal__form-input-error"
+            id="profile-title-input-error"
+          ></span>
+          <input
+            type="text"
+            name="description"
+            class="modal__form-input"
+            placeholder="Description"
+            id="profile-description-input"
+            minlength="2"
+            maxlength="200"
+            required
+          />
+          <span
+            class="modal__form-input-error"
             id="profile-description-input-error"
           ></span>
-          <button class="button popup__button">Save</button>
+          <button type="submit" class="modal__save-button">Save</button>
         </form>
       </div>
     </div>
-    <!-- Add popup -->
-    <div class="popup" id="add-card-popup">
-      <div class="popup__container">
-        <button class="popup__close" id="popup-close-btn"></button>
-        <p class="popup__heading">New Place</p>
-        <form class="popup__form" id="add-card-form">
+    <!-- Add Place Modal -->
+    <div class="modal" id="places-add-modal">
+      <div class="modal__container">
+        <button
+          class="modal__close-button"
+          id="places-modal-close-btn"
+        ></button>
+        <h2 class="modal__heading">New Place</h2>
+        <form class="modal__form" id="add-place-form" novalidate>
           <input
-            class="popup__input popup__input_description_type_name"
             type="text"
-            id="profile-title-input"
-            name="name"
+            name="title"
+            class="modal__form-input"
             placeholder="Title"
+            id="place-title-input"
             minlength="1"
             maxlength="30"
             required
           />
-          <span class="popup__error" id="profile-title-input-error"></span>
+          <span
+            class="modal__form-input-error"
+            id="place-title-input-error"
+          ></span>
           <input
-            class="popup__input popup__input_type_url"
             type="url"
-            id="profile-description-input"
             name="url"
+            class="modal__form-input"
             placeholder="Image URL"
+            id="place-url-input"
             required
           />
-          <span class="popup__error" id="profile-description-input-error"
-            >please enter a web address.</span
-          >
-          <button class="button popup__button popup__button_disabled" disabled>
-            Create
+          <span
+            class="modal__form-input-error"
+            id="place-url-input-error"
+          ></span>
+          <button type="submit" class="modal__save-button" disabled>
+            Save
           </button>
         </form>
       </div>
     </div>
-
-    <!-- previewImagepopup -->
-    <div class="popup" id="image-popup">
-      <div class="popup__container popup__container_type_image">
-        <button class="popup__close" id="popup-close-btn"></button>
-        <img src="" alt="" class="popup__image" />
-        <p class="popup__caption"></p>
+    <!-- Place Preview Modal -->
+    <div class="modal" id="places-preview-modal">
+      <div class="modal__container-imagepreview">
+        <button
+          class="modal__close-button"
+          id="preview-modal-close-btn"
+        ></button>
+        <img src="" alt="" class="modal__image-preview" id="places-preview" />
+        <h2 class="modal__image-caption" id="modal-image-caption"></h2>
       </div>
     </div>
-
+    <!-- Card Template -->
     <template id="card-template">
       <li class="card">
+        <button
+          class="card__delete-button"
+          type="button"
+          aria-label="Delete Place"
+        ></button>
         <img src="" alt="" class="card__image" />
-        <button type="button" class="card__delete-button"></button>
         <div class="card__description">
           <h2 class="card__title"></h2>
-          <button type="button" class="card__like-button"></button>
+          <button
+            class="card__react-button"
+            type="button"
+            aria-label="Like React to Post"
+          ></button>
         </div>
       </li>
     </template>
-
-    <!-- <script src="./pages/index.js" type="module"></script> -->
-    <!-- <script src="./scripts/validation.js"></script> -->
   </body>
 </html>

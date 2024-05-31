@@ -7,6 +7,7 @@
 - Css Grid
 - Figma
 - Images
+- JavaScript
 
 **Intro**
 

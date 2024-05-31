@@ -1,61 +1,45 @@
-class Card {
-  constructor(cardData, cardSelector, handlePreviewPicture) {
-    this._name = cardData.name;
-    this._link = cardData.link;
+export default class Card {
+  constructor(data, cardSelector, handleImageClick) {
+    this._data = {
+      name: data.name,
+      link: data.link,
+    };
+    this._handleImageClick = handleImageClick;
     this._cardSelector = cardSelector;
-    this._handlePreviewPicture = handlePreviewPicture;
   }
 
   _setEventListeners() {
-    // ".card__like-button"
-    this._cardElement
-      .querySelector(".card__like-button")
-      .addEventListener("click", this._handleLikeIcon);
+    this._likeIcon.addEventListener("click", this._handleLikeIcon);
 
-    // ".card__delete-button"
-    this._cardElement
-      .querySelector(".card__delete-button")
-      .addEventListener("click", () => {
-        this._handleDeleteCard(this);
-      });
+    this._deleteBtn.addEventListener("click", this._handleDeleteCard);
 
-    this._cardElement
-      .querySelector(".card__image")
-      .addEventListener("click", () => {
-        this._handlePreviewPicture(this);
-      });
+    this._cardImageEl.addEventListener("click", () => {
+      this._handleImageClick(this._data);
+    });
   }
 
   _handleLikeIcon = () => {
-    this._cardElement
-      .querySelector(".card__like-button")
-      .classList.toggle("card__like-button_active");
+    this._likeIcon.classList.toggle("card__react-button_active");
   };
 
-  _handleDeleteCard() {
+  _handleDeleteCard = () => {
     this._cardElement.remove();
     this._cardElement = null;
-  }
+  };
 
-  _getTemplate() {
-    return document
+  getView() {
+    this._cardElement = document
       .querySelector(this._cardSelector)
       .content.querySelector(".card")
       .cloneNode(true);
-  }
-
-  getView() {
-    this._cardElement = this._getTemplate();
-
     this._cardImageEl = this._cardElement.querySelector(".card__image");
     this._cardTitleEl = this._cardElement.querySelector(".card__title");
-
-    this._cardImageEl.src = this._link;
-    this._cardImageEl.alt = this._name;
-    this._cardTitleEl.textContent = this._name;
+    this._cardTitleEl.textContent = this._data.name;
+    this._cardImageEl.src = this._data.link;
+    this._cardImageEl.alt = "Photo of " + this._data.name;
+    this._likeIcon = this._cardElement.querySelector(".card__react-button");
+    this._deleteBtn = this._cardElement.querySelector(".card__delete-button");
     this._setEventListeners();
     return this._cardElement;
   }
 }
-
-export default Card;
