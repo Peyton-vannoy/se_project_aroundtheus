@@ -5,6 +5,7 @@ import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
 import { initialCards, settings } from "../utils/constants.js";
 
 /* Profile */
@@ -53,6 +54,16 @@ function handleNewPlaceSubmit(cardData) {
 function handleImageClick(imageData) {
   imagePreviewModal.open(imageData);
 }
+
+/* Api instantiation */
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "ddc88790-62af-4c4d-983c-0779aaa6d561",
+    "Content-Type": "application/json",
+  },
+});
 
 function getCardElement(cardData) {
   const card = new Card(cardData, "#card-template", handleImageClick);
