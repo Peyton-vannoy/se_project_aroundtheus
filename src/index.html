@@ -136,6 +136,45 @@
         <h2 class="modal__image-caption" id="modal-image-caption"></h2>
       </div>
     </div>
+
+    <!-- Change Avatar Modal -->
+    <div class="modal" id="change-avatar">
+      <div class="modal__container">
+        <button
+          class="modal__close-button"
+          id="change-avatar-close-btn"
+        ></button>
+        <h2 class="modal__heading">Change profile picture</h2>
+        <form class="modal__form" id="change-avatar-form">
+          <input
+            type="url"
+            name="url"
+            class="modal__form-input"
+            placeholder="Image URL"
+            id="avatar-url-input"
+            required
+          />
+          <span
+            class="modal__form-input-error"
+            id="avatar-url-input-error"
+          ></span>
+          <button type="submit" class="modal__save-button">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Delete Card Modal -->
+    <div class="modal" id="delete-card-modal">
+      <div class="modal__container">
+        <button
+          class="modal__close-button"
+          id="delete-card-modal-close-btn"
+        ></button>
+        <h2 class="modal__heading">Are you sure?</h2>
+        <button type="submit" class="modal__save-button" disabled>Yes</button>
+      </div>
+    </div>
+
     <!-- Card Template -->
     <template id="card-template">
       <li class="card">
