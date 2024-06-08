@@ -1,21 +1,65 @@
 import "./index.css";
+import Api from "../components/Api.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
-import Api from "../components/Api.js";
 import { initialCards, settings } from "../utils/constants.js";
 
-/* Api instantiation */
+/* API Instantiation */
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
-    authorization: "ddc88790-62af-4c4d-983c-0779aaa6d561",
+    authorization: "697fd183-9a82-4522-9294-b01c12c32a59",
     "Content-Type": "application/json",
   },
 });
+
+/* User Info */
+const userInfo = new UserInfo({
+  nameSelector: ".profile__title",
+  jobSelector: ".profile__description",
+  avatarSelector: ".profile__avatar",
+});
+
+/* Inital Cards */
+let section;
+api
+  .getInitialCards()
+  .then((cards) => {
+    section = new Section(
+      {
+        items: cards,
+        renderer: (card) => {
+          const cardElement = getCardElement(card);
+          section.addItem(cardElement);
+        },
+      },
+      ".cards__list"
+    );
+    section.renderItems();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+/* User Info */
+api
+  .getUserInformation()
+  .then((userData) => {
+    userInfo.setUserInfo({
+      name: userData.name,
+      job: userData.about,
+    });
+    //userInfo.setUserAvatar(userData.avatar);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+//api.editProfile({ name: "Jacques Cousteau", about: "Frontend developer" });
 
 /* Profile */
 const profileEditBtn = document.querySelector("#profile-edit-btn");
@@ -29,28 +73,26 @@ const profileDescriptionInput = document.querySelector(
 const placesAddBtn = document.querySelector("#places-add-btn");
 const placeAddForm = document.forms["add-place-form"];
 
-const userInfo = new UserInfo();
-
-api.getUserInformation().then((formData) => {
-  userInfo.setUserInfo(formData.name, formData.about);
-  // userInfo.setUserAvatar(data.avatar);
-});
-
 /* Edit Profile Button Listener */
 profileEditBtn.addEventListener("click", () => {
-  const data = userInfo.getUserInfo();
-  profileTitleInput.value = data.name;
-  profileDescriptionInput.value = data.about;
+  const { name, job } = userInfo.getUserInfo();
+  profileTitleInput.value = name;
+  profileDescriptionInput.value = job;
   editProfileModal.open();
   profileEditValidation.resetValidation();
 });
 
 /* Profile Edit Function */
 function handleProfileEditSubmit(formData) {
-  api.editProfile(formData.name, formData.about).then((data) => {
-    userInfo.setUserInfo(data.name, data.about);
-    editProfileModal.close();
-  });
+  api
+    .editProfile({ name: formData.title, about: formData.description })
+    .then(({ name, about }) => {
+      userInfo.setUserInfo({ name, about });
+      editProfileModal.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 /* Add Place Button Listener */
@@ -61,18 +103,12 @@ placesAddBtn.addEventListener("click", () => {
 /* Add Place Function */
 function handleNewPlaceSubmit(cardData) {
   const { title, url } = cardData;
-  api
-    .addCard({ name: title, link: url })
-    .then((cardData) => {
-      const cardElement = getCardElement(cardData);
-      section.addItem(cardElement);
-      addPlaceModal.close();
-      addPlaceModal.reset();
-      addPlaceValidation.disableButton();
-    })
-    .catch((err) => {
-      console.log("Error adding card: ", err);
-    });
+  const cardElement = getCardElement({ name: title, link: url });
+
+  section.addItem(cardElement);
+  addPlaceModal.close();
+  addPlaceModal.reset();
+  addPlaceValidation.disableButton();
 }
 
 /* Image Click Preview Function */
@@ -89,26 +125,10 @@ function getCardElement(cardData) {
 const profileEditValidation = new FormValidator(settings, profileEditForm);
 const addPlaceValidation = new FormValidator(settings, placeAddForm);
 
-let section;
-api
-  .getInitialCards()
-  .then((cardData) => {
-    section = new Section(
-      {
-        items: cardData,
-        renderer: (cardData) => {
-          const cardElement = getCardElement(cardData);
-          section.addItem(cardElement);
-        },
-      },
-      ".cards__list"
-    );
-
-    section.renderItems();
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+// const section = new Section(
+//   { items: initialCards, renderer: getCardElement },
+//   ".cards__list"
+// );
 
 const imagePreviewModal = new PopupWithImage("#places-preview-modal");
 
@@ -125,48 +145,6 @@ const addPlaceModal = new PopupWithForm(
 editProfileModal.setEventListeners();
 imagePreviewModal.setEventListeners();
 addPlaceModal.setEventListeners();
-
+//section.renderItems();
 profileEditValidation.enableValidation();
 addPlaceValidation.enableValidation();
-
-/* Api functions */
-
-// api
-//   .getInitialCards()
-//   .then((result) => {
-//     section.renderItems(result);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
-
-// // api
-// //   .getUserInformation()
-// //   .then((data) => {
-// //     userInfo.setUserInfo(data);
-// //   })
-// //   .catch((err) => {
-// //     console.log(err);
-// //   });
-
-// api
-//   .editProfile({
-//     name: profileTitleInput.value,
-//     about: profileDescriptionInput.value,
-//   })
-//   .then((data) => {
-//     userInfo.setUserInfo(data);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
-
-// // api
-// //   .addCard({})
-// //   .then((cardData) => {
-// //     const cardElement = getCardElement(cardData);
-// //     section.addItem(cardElement);
-// //   })
-// //   .catch((err) => {
-// //     console.log(err);
-// //   });
