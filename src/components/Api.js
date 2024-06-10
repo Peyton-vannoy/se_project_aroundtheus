@@ -28,7 +28,7 @@ export default class Api {
     });
   }
 
-  editUserInfo(name, about) {
+  editProfile(name, about) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
@@ -41,7 +41,7 @@ export default class Api {
     });
   }
 
-  addNewPlace(name, link) {
+  addCard({ name, link }) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,

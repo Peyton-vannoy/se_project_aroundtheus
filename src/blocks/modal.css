@@ -36,6 +36,16 @@
   max-height: 330px;
 }
 
+.modal__container-confirm {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal__container-avatar {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .modal__container-imagepreview {
   position: relative;
   display: flex;
@@ -63,6 +73,14 @@
   font-size: 24px;
   margin: 0 0 54px 0;
   line-height: 1.2;
+}
+
+.modal__heading-confirm {
+  margin: 0 0;
+}
+
+.modal__heading-avatar {
+  margin: 0 0 24px 0;
 }
 
 .modal__close-button {
@@ -105,6 +123,10 @@
   margin-top: 30px;
 }
 
+.modal__form-avatar {
+  margin-top: 0;
+}
+
 .modal__save-button {
   width: 100%;
   color: #fff;
@@ -118,6 +140,10 @@
   padding: 0;
   cursor: pointer;
   margin-top: 48px;
+}
+
+.modal__save-button-confirm {
+  margin-top: 38px;
 }
 
 .modal__save-button:hover {

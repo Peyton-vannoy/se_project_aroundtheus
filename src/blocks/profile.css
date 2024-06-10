@@ -13,6 +13,38 @@
   grid-template-columns: minmax(auto, 375px) auto;
 }
 
+.avatar__edit-button {
+  background: transparent url(../images/avatar__edit-btn.svg) center no-repeat;
+  height: 26px;
+  width: 26px;
+  border: 0;
+  cursor: pointer;
+  margin: 47px;
+  overflow: hidden;
+}
+
+.avatar__edit-overlay {
+  background-color: transparent;
+  opacity: 0;
+  overflow: hidden;
+  border: 0;
+  cursor: pointer;
+  position: absolute;
+  width: 120px;
+  height: 120px;
+}
+
+.avatar__edit-overlay:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 1;
+  overflow: hidden;
+  border: 0;
+  cursor: pointer;
+  position: absolute;
+  width: 120px;
+  height: 120px;
+}
+
 .profile__edit-button {
   background: transparent url(../images/profile_edit_button.svg) center
     no-repeat;

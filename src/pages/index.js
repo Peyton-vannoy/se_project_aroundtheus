@@ -1,7 +1,7 @@
 import "./index.css";
 
 import Api from "../components/Api.js";
-import Card from "../components/Card.js";
+import Card from "../components/card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
@@ -28,7 +28,7 @@ const profileDescriptionInput = document.querySelector(
 /* Avatar Var */
 const avatarUpdateBtn = document.querySelector("#avatar-update-btn");
 const avatarForm = document.forms["update-avatar-form"];
-const avatarPreview = document.querySelector(".profile__avatar");
+//const avatarPreview = document.querySelector(".profile__avatar");
 
 /* Places Var */
 const placesAddBtn = document.querySelector("#places-add-btn");
@@ -123,28 +123,38 @@ api
   })
   .catch((err) => console.error(err));
 
-/* GET Profile */
-const userInfo = new UserInfo();
+/* GET User Info */
+const userInfo = new UserInfo({
+  profileName: ".profile__title",
+  profileJob: ".profile__description",
+  profileAvatar: ".profile__avatar",
+});
+
 api
   .getUserInfo()
   .then((profileData) => {
-    userInfo.setUserInfo(profileData);
+    userInfo.setUserInfo({
+      title: profileData.title,
+      description: profileData.description,
+    });
+    userInfo.setUserAvatar({ avatar: profileData.avatar });
   })
   .catch((err) => console.error(err));
 
 /* PATCH Profile Edit Function */
-function handleProfileEditSubmit(profileInputValues) {
+function handleProfileEditSubmit(inputValues) {
   editProfileModal.setLoading(true);
 
-  const userData = {
-    name: profileInputValues.title,
-    about: profileInputValues.description,
-  };
-
   api
-    .editUserInfo(userData.name, userData.about)
-    .then((updatedUserData) => {
-      userInfo.setUserInfo(updatedUserData);
+    .editProfile({
+      name: inputValues.title,
+      about: inputValues.description,
+    })
+    .then(({ name, about }) => {
+      userInfo.setUserInfo({
+        name,
+        about,
+      });
       editProfileModal.close();
     })
     .catch((err) => {
@@ -156,15 +166,15 @@ function handleProfileEditSubmit(profileInputValues) {
 }
 
 /* PATCH Profile Avatar Function */
-function handleAvatarSubmit({ url }) {
+function handleAvatarSubmit(inputValues) {
   updateAvatarModal.setLoading(true);
 
   api
-    .updateAvatar(url)
+    .updateAvatar(inputValues)
     .then((res) => {
-      userInfo.updateAvatar(url);
-      updateAvatarModal.reset();
+      userInfo.updateAvatar(res);
       updateAvatarModal.close();
+      updateAvatarModal.reset();
       console.log("Success:", res);
     })
     .catch((err) => {
@@ -184,7 +194,7 @@ function handleNewPlaceSubmit(placeCardData) {
   };
 
   api
-    .addNewPlace(cardData.name, cardData.link)
+    .addCard(cardData.name, cardData.link)
     .then((newPlaceCard) => {
       const cardElement = getCardElement({
         name: newPlaceCard.name,
@@ -237,7 +247,7 @@ placesAddBtn.addEventListener("click", () => {
   addPlaceModal.open();
 });
 
-/* Profile Avatar Button Listener */
+/*Profile Avatar Button Listener*/
 avatarUpdateBtn.addEventListener("click", () => {
   updateAvatarModal.open();
 });
