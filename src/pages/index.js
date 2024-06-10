@@ -2,11 +2,12 @@
 import "../pages/index.css";
 
 // import modules
-
+import Api from "../components/Api.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
-
+import ProfileEditImage from "../components/ProfileEditImage.js";
+import PopupWithConfirm from "../components/PopupWithConfirm.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
