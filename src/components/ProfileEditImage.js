@@ -1,6 +1,6 @@
-export default class ProfileEditImage {
+class ProfileEditImage {
   constructor(container, icon) {
-    this._container = document.querySelector(container)._container;
+    this._container = document.querySelector(container);
     this._icon = document.querySelector(icon);
   }
 
@@ -17,3 +17,5 @@ export default class ProfileEditImage {
     this._container.addEventListener("mouseleave", this.hideIcon.bind(this));
   }
 }
+
+export default ProfileEditImage;
