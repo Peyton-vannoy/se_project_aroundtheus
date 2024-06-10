@@ -22,5 +22,3 @@ class UserInfo {
     this._avatarElement.src = avatar;
   }
 }
-
-export default UserInfo;
