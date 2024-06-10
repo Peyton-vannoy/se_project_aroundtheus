@@ -1,34 +1,78 @@
-class Popup {
-  constructor({ popupSelector }) {
-    this.popupElement = document.querySelector(popupSelector);
-    this._handleEscClose = this._handleEscClose.bind(this);
+export default class FormValidator {
+  constructor(settings, formEl) {
+    this._inputSelector = settings.inputSelector;
+    this._submitButtonSelector = settings.submitButtonSelector;
+    this._inactiveButtonClass = settings.inactiveButtonClass;
+    this._inputErrorClass = settings.inputErrorClass;
+    this._errorClass = settings.errorClass;
+    this._form = formEl;
+  }
+  _showInputError(inputEl) {
+    const errorMessageEl = this._form.querySelector(`#${inputEl.id}-error`);
+    inputEl.classList.add(this._inputErrorClass);
+    errorMessageEl.textContent = inputEl.validationMessage;
+    errorMessageEl.classList.add(this._errorClass);
   }
 
-  open() {
-    this.popupElement.classList.add("modal_opened");
-    document.addEventListener("keydown", this._handleEscClose);
-  }
-  close() {
-    this.popupElement.classList.remove("modal_opened");
-    document.removeEventListener("keydown", this._handleEscClose);
+  _hideInputError(inputEl) {
+    const errorMessageEl = this._form.querySelector(`#${inputEl.id}-error`);
+    inputEl.classList.remove(this._inputErrorClass);
+    errorMessageEl.textContent = "";
+    errorMessageEl.classList.remove(this._errorClass);
   }
 
-  _handleEscClose = (evt) => {
-    if (evt.key === "Escape") {
-      this.close();
+  _checkInputValidity(inputEl) {
+    if (!inputEl.validity.valid) {
+      return this._showInputError(inputEl);
     }
-  };
+    this._hideInputError(inputEl);
+  }
+
+  _hasInvalidInput(inputList) {
+    return !inputList.every((inputEl) => inputEl.validity.valid);
+  }
+
+  _enableButton() {
+    this._submitBtn.classList.remove(this._inactiveButtonClass);
+    this._submitBtn.disabled = false;
+  }
+
+  disableButton() {
+    this._submitBtn.classList.add(this._inactiveButtonClass);
+    this._submitBtn.disabled = true;
+  }
+
+  _toggleButtonState() {
+    if (this._hasInvalidInput(this._inputEls)) {
+      this.disableButton();
+      return;
+    }
+    this._enableButton();
+  }
+
+  resetValidation() {
+    this._inputEls.forEach((inputEl) => {
+      this._hideInputError(inputEl);
+    });
+    this._enableButton();
+  }
 
   setEventListeners() {
-    this.popupElement.addEventListener("click", (evt) => {
-      if (
-        evt.target.classList.contains("modal_opened") ||
-        evt.target.classList.contains("modal__close-button")
-      ) {
-        this.close();
-      }
+    this._inputEls = [...this._form.querySelectorAll(this._inputSelector)];
+    this._submitBtn = this._form.querySelector(this._submitButtonSelector);
+
+    this._inputEls.forEach((inputEl) => {
+      inputEl.addEventListener("input", () => {
+        this._checkInputValidity(inputEl);
+        this._toggleButtonState();
+      });
     });
   }
-}
 
-export default Popup;
+  enableValidation() {
+    this._form.addEventListener("submit", (e) => {
+      e.preventDefault(e);
+    });
+    this.setEventListeners();
+  }
+}
