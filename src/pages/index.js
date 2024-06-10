@@ -122,19 +122,20 @@ api
   })
   .catch((err) => console.error(err));
 
-/* GET User Info */
+/* user info instance */
 const userInfo = new UserInfo({
   profileName: ".profile__title",
   profileJob: ".profile__description",
   profileAvatar: ".profile__image",
 });
 
+/* GET User Info */
 api
   .getUserInfo()
   .then((profileData) => {
     userInfo.setUserInfo({
-      title: profileData.title,
-      description: profileData.description,
+      name: profileData.name,
+      about: profileData.about,
     });
     userInfo.setUserAvatar({ avatar: profileData.avatar });
   })
@@ -146,8 +147,8 @@ function handleProfileEditSubmit(inputValues) {
 
   api
     .editProfile({
-      name: inputValues.title,
-      about: inputValues.description,
+      name: inputValues.name,
+      about: inputValues.about,
     })
     .then(({ name, about }) => {
       userInfo.setUserInfo({
@@ -171,9 +172,9 @@ function handleAvatarSubmit(inputValues) {
   api
     .updateAvatar(inputValues)
     .then((res) => {
-      userInfo.updateAvatar(res);
-      updateAvatarModal.close();
+      userInfo.setUserAvatar(res);
       updateAvatarModal.reset();
+      updateAvatarModal.close();
       console.log("Success:", res);
     })
     .catch((err) => {
@@ -185,23 +186,15 @@ function handleAvatarSubmit(inputValues) {
 }
 
 /* POST Add Place Function */
-function handleNewPlaceSubmit(placeCardData) {
+function handleNewPlaceSubmit(inputValues) {
   addPlaceModal.setLoading(true);
-  const cardData = {
-    name: placeCardData.title,
-    link: placeCardData.url,
-  };
 
   api
-    .addCard(cardData.name, cardData.link)
-    .then((newPlaceCard) => {
-      const cardElement = getCardElement({
-        name: newPlaceCard.name,
-        link: newPlaceCard.link,
-        _id: newPlaceCard._id,
-      });
-      section.addItem(cardElement);
+    .addCard({ name: inputValues.name, link: inputValues.link })
+    .then(({ name, link, _id }) => {
+      section.addItem(getCardElement({ name, link, _id }));
       addPlaceModal.close();
+
       addPlaceModal.reset();
     })
     .catch((err) => {
@@ -234,11 +227,11 @@ function handleLikeReact(likeReact, likeStatus, cardId) {
 
 /* Edit Profile Button Listener */
 profileEditBtn.addEventListener("click", () => {
-  const { name, job } = userInfo.getUserInfo();
-  profileTitleInput.value = name;
-  profileDescriptionInput.value = job;
-  editProfileModal.open();
+  const currentUser = userInfo.getUserInfo();
+  profileTitleInput.value = currentUser.name;
+  profileDescriptionInput.value = currentUser.about;
   profileEditValidation.resetValidation();
+  editProfileModal.open();
 });
 
 /* Add Place Button Listener */

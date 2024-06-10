@@ -28,11 +28,11 @@ export default class Api {
     });
   }
 
-  editProfile(name, about) {
+  editProfile(res) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify({ name, about }),
+      body: JSON.stringify({ name: res.name, about: res.about }),
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -66,11 +66,11 @@ export default class Api {
     });
   }
 
-  updateAvatar(avatar) {
+  updateAvatar(inputValues) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify({ avatar }),
+      body: JSON.stringify({ avatar: inputValues.link }),
     }).then((res) => {
       if (res.ok) {
         return res.json();
