@@ -26,9 +26,8 @@ const profileDescriptionInput = document.querySelector(
 );
 
 /* Avatar Var */
-const avatarUpdateBtn = document.querySelector("#avatar-update-btn");
+const avatarUpdateBtn = document.querySelector("#avatar-save-btn");
 const avatarForm = document.forms["update-avatar-form"];
-//const avatarPreview = document.querySelector(".profile__avatar");
 
 /* Places Var */
 const placesAddBtn = document.querySelector("#places-add-btn");
@@ -127,7 +126,7 @@ api
 const userInfo = new UserInfo({
   profileName: ".profile__title",
   profileJob: ".profile__description",
-  profileAvatar: ".profile__avatar",
+  profileAvatar: ".profile__image",
 });
 
 api
