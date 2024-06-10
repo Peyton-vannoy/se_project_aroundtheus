@@ -1,31 +1,21 @@
-import Popup from "./Popup.js";
-
-export default class PopupWithForm extends Popup {
-  constructor(popupSelector, handleFormSubmit) {
-    super(popupSelector);
-    this._popupForm = this._popupElement.querySelector(".modal__form");
-    this._handleFormSubmit = handleFormSubmit;
-    this._inputList = this._popupForm.querySelectorAll(".modal__form-input");
+class ProfileEditImage {
+  constructor(container, icon) {
+    this._container = document.querySelector(container);
+    this._icon = document.querySelector(icon);
   }
 
-  _getInputValues() {
-    this._formValues = {};
-    this._inputList.forEach((input) => {
-      this._formValues[input.name] = input.value;
-    });
-    return this._formValues;
+  showIcon() {
+    this._icon.style.display = "inline-block";
   }
 
-  reset() {
-    this._popupForm.reset();
+  hideIcon() {
+    this._icon.style.display = "none";
   }
 
   setEventListeners() {
-    this._popupForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      this._handleFormSubmit(this._getInputValues());
-    });
-
-    super.setEventListeners();
+    this._container.addEventListener("mouseenter", this.showIcon.bind(this));
+    this._container.addEventListener("mouseleave", this.hideIcon.bind(this));
   }
 }
+
+export default ProfileEditImage;

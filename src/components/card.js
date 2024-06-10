@@ -1,45 +1,93 @@
-export default class Card {
-  constructor(data, cardSelector, handleImageClick) {
-    this._data = {
-      name: data.name,
-      link: data.link,
-    };
-    this._handleImageClick = handleImageClick;
-    this._cardSelector = cardSelector;
+class FormValidator {
+  constructor(config, formElement) {
+    this._formSelector = config.formSelector;
+    this._inputSelector = config.inputSelector;
+    this._submitButtonSelector = config.submitButtonSelector;
+    this._inactiveButtonClass = config.inactiveButtonClass;
+    this._inputErrorClass = config.inputErrorClass;
+    this._errorClass = config.errorClass;
+
+    this._formElement = formElement;
+  }
+
+  _showInputError(inputElement) {
+    const errorMessageElement = this._formElement.querySelector(
+      `#${inputElement.id}-error`
+    );
+
+    inputElement.classList.add(this._inputErrorClass);
+    errorMessageElement.textContent = inputElement.validationMessage;
+    errorMessageElement.classList.add(this._errorClass);
+  }
+
+  _hideInputError(inputElement) {
+    const errorMessageElement = this._formElement.querySelector(
+      `#${inputElement.id}-error`
+    );
+
+    inputElement.classList.remove(this._inputErrorClass);
+    errorMessageElement.textContent = "";
+    errorMessageElement.classList.remove(this._errorClass);
+  }
+
+  _checkInputValidity(inputElement) {
+    if (!inputElement.validity.valid) {
+      return this._showInputError(inputElement);
+    }
+    this._hideInputError(inputElement);
+  }
+
+  disableButton() {
+    this._submitButton.classList.add(this._inactiveButtonClass);
+    this._submitButton.disabled = true;
+  }
+
+  _enableButton() {
+    this._submitButton.classList.remove(this._inactiveButtonClass);
+    this._submitButton.disabled = false;
+  }
+
+  _hasInvalidInput(inputList) {
+    return !inputList.every((inputElement) => inputElement.validity.valid);
+  }
+
+  _toggleButtonState() {
+    if (this._hasInvalidInput(this._inputElements)) {
+      this.disableButton();
+      return;
+    }
+    this._enableButton();
   }
 
   _setEventListeners() {
-    this._likeIcon.addEventListener("click", this._handleLikeIcon);
-
-    this._deleteBtn.addEventListener("click", this._handleDeleteCard);
-
-    this._cardImageEl.addEventListener("click", () => {
-      this._handleImageClick(this._data);
+    this._inputElements = [
+      ...this._formElement.querySelectorAll(this._inputSelector),
+    ];
+    this._submitButton = this._formElement.querySelector(
+      this._submitButtonSelector
+    );
+    this._inputElements.forEach((inputElement) => {
+      inputElement.addEventListener("input", () => {
+        this._checkInputValidity(inputElement);
+        this._toggleButtonState(this._inputElements);
+      });
     });
   }
 
-  _handleLikeIcon = () => {
-    this._likeIcon.classList.toggle("card__react-button_active");
-  };
+  enableValidation() {
+    this._formElement.addEventListener("submit", (e) => {
+      e.preventDefault();
+    });
 
-  _handleDeleteCard = () => {
-    this._cardElement.remove();
-    this._cardElement = null;
-  };
-
-  getView() {
-    this._cardElement = document
-      .querySelector(this._cardSelector)
-      .content.querySelector(".card")
-      .cloneNode(true);
-    this._cardImageEl = this._cardElement.querySelector(".card__image");
-    this._cardTitleEl = this._cardElement.querySelector(".card__title");
-    this._cardTitleEl.textContent = this._data.name;
-    this._cardImageEl.src = this._data.link;
-    this._cardImageEl.alt = "Photo of " + this._data.name;
-    this._likeIcon = this._cardElement.querySelector(".card__react-button");
-    this._deleteBtn = this._cardElement.querySelector(".card__delete-button");
     this._setEventListeners();
-    return this._cardElement;
+  }
+
+  resetValidation() {
+    this._toggleButtonState();
+    this._inputElements.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
   }
 }
+
+export default FormValidator;

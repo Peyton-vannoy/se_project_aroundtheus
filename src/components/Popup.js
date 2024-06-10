@@ -1,37 +1,37 @@
-export default class Popup {
-  constructor(popupSelector) {
-    this._popupElement = document.querySelector(popupSelector);
-    this._handleEscClose = this._handleEscClose.bind(this);
-    this._closeButton = this._popupElement.querySelector(
-      ".modal__close-button"
-    );
+import Popup from "./Popup.js";
+
+class PopupWithForm extends Popup {
+  constructor(popupSelector, handleFormSubmit) {
+    super({ popupSelector });
+    this._form = this.popupElement.querySelector(".modal__form");
+    this._inputList = this._form.querySelectorAll(".modal__input");
+    this._handleFormSubmit = handleFormSubmit;
+    this._submitButton = this._form.querySelector(".modal__button");
   }
 
-  open() {
-    this._popupElement.classList.add("modal_open");
-    document.addEventListener("keydown", this._handleEscClose);
-  }
-
-  close() {
-    this._popupElement.classList.remove("modal_open");
-    document.removeEventListener("keydown", this._handleEscClose);
-  }
-
-  _handleEscClose(e) {
-    if (e.key === "Escape") {
-      this.close();
-    }
+  _getInputValues() {
+    this._formValues = {};
+    this._inputList.forEach((input) => {
+      this._formValues[input.name] = input.value;
+    });
+    return this._formValues;
   }
 
   setEventListeners() {
-    this._closeButton.addEventListener("click", () => {
-      this.close();
-    });
-
-    this._popupElement.addEventListener("click", (e) => {
-      if (e.target === this._popupElement) {
-        this.close();
-      }
+    super.setEventListeners();
+    this._form.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      this._handleFormSubmit(this._getInputValues());
     });
   }
+
+  reset() {
+    this._form.reset();
+  }
+
+  setSubmitButtonText(text) {
+    this._submitButton.textContent = text;
+  }
 }
+
+export default PopupWithForm;

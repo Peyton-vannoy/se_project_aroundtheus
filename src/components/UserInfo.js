@@ -1,18 +1,3 @@
-export default class UserInfo {
-  constructor() {
-    this._profileName = document.querySelector(".profile__title");
-    this._profileJob = document.querySelector(".profile__description");
-  }
-
-  getUserInfo() {
-    return {
-      name: this._profileName.textContent,
-      job: this._profileJob.textContent,
-    };
-  }
-
-  setUserInfo({ title, description }) {
-    this._profileName.textContent = title;
-    this._profileJob.textContent = description;
-  }
-}
+<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M22 9.77778H12.2222V0H9.77778V9.77778H0V12.2222H9.77778V22H12.2222V12.2222H22V9.77778Z" fill="white"/>
+</svg>
