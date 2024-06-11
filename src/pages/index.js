@@ -7,7 +7,7 @@ import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
-import { initialCards, settings } from "../utils/constants.js";
+import { settings } from "../utils/constants.js";
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
@@ -17,7 +17,7 @@ const api = new Api({
   },
 });
 
-/* Profile Var */
+/* Profile Variables */
 const profileEditBtn = document.querySelector("#profile-edit-btn");
 const profileTitleInput = document.querySelector("#profile-title-input");
 const profileEditForm = document.forms["profile-form"];
@@ -25,11 +25,11 @@ const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 
-/* Avatar Var */
+/* Avatar Variables */
 const avatarUpdateBtn = document.querySelector("#avatar-save-btn");
 const avatarForm = document.forms["update-avatar-form"];
 
-/* Places Var */
+/* Add Place Variables */
 const placesAddBtn = document.querySelector("#places-add-btn");
 const placeAddForm = document.forms["add-place-form"];
 
@@ -145,6 +145,11 @@ api
 function handleProfileEditSubmit(inputValues) {
   editProfileModal.setLoading(true);
 
+  if (!inputValues.name || !inputValues.about) {
+    console.error("Please fill in all the fields");
+    return;
+  }
+
   api
     .editProfile({
       name: inputValues.name,
@@ -152,8 +157,8 @@ function handleProfileEditSubmit(inputValues) {
     })
     .then(({ name, about }) => {
       userInfo.setUserInfo({
-        name,
-        about,
+        name: name,
+        about: about,
       });
       editProfileModal.close();
     })
@@ -228,8 +233,8 @@ function handleLikeReact(likeReact, likeStatus, cardId) {
 /* Edit Profile Button Listener */
 profileEditBtn.addEventListener("click", () => {
   const currentUser = userInfo.getUserInfo();
-  profileTitleInput.value = currentUser.name;
-  profileDescriptionInput.value = currentUser.about;
+  profileTitleInput.value = currentUser.name || "";
+  profileDescriptionInput.value = currentUser.about || "";
   profileEditValidation.resetValidation();
   editProfileModal.open();
 });
