@@ -6,12 +6,11 @@ export default class Card {
     handleDeleteClick,
     handleLikeClick
   ) {
-    this._data = {
-      name: data.name,
-      link: data.link,
-      id: data._id,
-      isLiked: data.isLiked,
-    };
+    this._name = data.name;
+    this._link = data.link;
+    this._id = data._id;
+    this._isLiked = data.isLiked;
+
     this._handleImageClick = handleImageClick;
     this._handleDeleteClick = handleDeleteClick;
     this._handleLikeClick = handleLikeClick;
@@ -20,15 +19,34 @@ export default class Card {
 
   _setEventListeners() {
     this._likeIcon.addEventListener("click", () => {
-      this._handleLikeClick(this._likeIcon, this._data.isLiked, this._data.id);
-      this._data.isLiked = !this._data.isLiked;
+      this._handleLikeClick(this);
     });
     this._deleteBtn.addEventListener("click", () => {
-      this._handleDeleteClick(this._data.id, this._cardElement);
+      this._handleDeleteClick(this);
     });
     this._cardImageEl.addEventListener("click", () => {
-      this._handleImageClick(this._data);
+      this._handleImageClick({
+        name: this._name,
+        link: this._link,
+      });
     });
+  }
+
+  renderLikes() {
+    if (this._isLiked) {
+      this._likeIcon.classList.add("card__react-button_active");
+    } else {
+      this._likeIcon.classList.remove("card__react-button_active");
+    }
+  }
+
+  toggleLike() {
+    this._likeIcon.classList.toggle("card__react-button_active");
+  }
+
+  handleDeleteCard() {
+    this._cardElement.remove();
+    this._cardElement = null;
   }
 
   getView() {
@@ -38,19 +56,15 @@ export default class Card {
       .cloneNode(true);
     this._cardImageEl = this._cardElement.querySelector(".card__image");
     this._cardTitleEl = this._cardElement.querySelector(".card__title");
-    this._cardTitleEl.textContent = this._data.name;
-    this._cardImageEl.src = this._data.link;
-    this._cardImageEl.alt = "Photo of " + this._data.name;
+    this._cardTitleEl.textContent = this._name;
+    this._cardImageEl.src = this._link;
+    this._cardImageEl.alt = "Photo of " + this._name;
     this._likeIcon = this._cardElement.querySelector(".card__react-button");
     this._deleteBtn = this._cardElement.querySelector(".card__delete-button");
 
-    if (this._data.isLiked) {
-      this._likeIcon.classList.add("card__react-button_active");
-    } else {
-      this._likeIcon.classList.remove("card__react-button_active");
-    }
-
+    this.renderLikes();
     this._setEventListeners();
+
     return this._cardElement;
   }
 }

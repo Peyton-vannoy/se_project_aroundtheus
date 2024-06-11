@@ -15,17 +15,18 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <button
-            class="avatar__edit-overlay"
-            type="button"
-            id="avatar-save-btn"
-            aria-label="Update Avatar"
-          >
-            <img src="<%=require("./images/avatar__edit-btn.svg")%>" alt="Edit
-            Avatar" class="avatar__edit-button" />
-          </button>
-          <img src="<%=require("./images/avatar_j_cousteau.png")%>" alt="Jacques
-          Cousteau Avatar Image" class="profile__image" id="avatar__image" />
+          <div class="profile__container">
+            <img src="<%=require("./images/avatar__edit-btn.svg")%>"
+            alt="Profile Picture" class="profile__image" id="profile__image"/>
+            <button
+              type="button"
+              aria-label="Update Image"
+              class="profile__edit-icon"
+              id="profile__edit-icon"
+            ></button>
+          </div>
+          <!-- <img src="<%=require("./images/avatar_j_cousteau.png")%>" alt="Jacques
+          Cousteau Avatar Image" class="profile__image" id="avatar__image" /> -->
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
             <button

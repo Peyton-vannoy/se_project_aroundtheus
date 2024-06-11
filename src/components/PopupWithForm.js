@@ -6,7 +6,7 @@ export default class PopupWithForm extends Popup {
     this._popupForm = this._popupElement.querySelector(".modal__form");
     this._handleFormSubmit = handleFormSubmit;
     this._inputList = this._popupForm.querySelectorAll(".modal__form-input");
-    this._submitBtn = this._popupForm.querySelector(".modal__save-button");
+    this._submitButton = this._popupForm.querySelector(".modal__save-button");
   }
 
   _getInputValues() {
@@ -17,39 +17,21 @@ export default class PopupWithForm extends Popup {
     return this._formValues;
   }
 
+  setEventListeners() {
+    super.setEventListeners();
+    this._popupForm.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      this._handleFormSubmit(this._getInputValues());
+    });
+  }
+
   reset() {
     if (this._popupForm) {
       this._popupForm.reset();
     }
   }
 
-  setEventListeners() {
-    super.setEventListeners();
-    if (this._popupForm) {
-      this._popupForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        this._handleFormSubmit(this._getInputValues());
-      });
-    }
-  }
-
-  open() {
-    super.open();
-  }
-
-  setSubmitHandler(newSubmitHandler) {
-    this._handleFormSubmit = newSubmitHandler;
-  }
-
-  setLoading(isLoading, loadingText = "Saving...", defaultText = "Save") {
-    if (this._submitBtn) {
-      if (isLoading) {
-        this._submitBtn.textContent = loadingText;
-        this._submitBtn.setAttribute("disabled", true);
-      } else {
-        this._submitBtn.textContent = defaultText;
-        this._submitBtn.removeAttribute("disabled");
-      }
-    }
+  setSubmitButtonText(text) {
+    this._submitButton.textContent = text;
   }
 }

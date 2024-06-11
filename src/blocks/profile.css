@@ -5,6 +5,12 @@
   box-sizing: border-box;
 }
 
+.profile__container:hover .profile__image {
+  opacity: 0.2;
+  transition: opacity 0.2s linear;
+  display: inline-block;
+}
+
 .profile__info {
   display: grid;
   grid-template-areas:
@@ -13,25 +19,28 @@
   grid-template-columns: minmax(auto, 375px) auto;
 }
 
-.avatar__edit-button {
-  background: transparent url(../images/avatar__edit-btn.svg) center no-repeat;
-  height: 26px;
-  width: 26px;
-  border: 0;
+.profile__image {
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  z-index: 1;
   cursor: pointer;
-  margin: 47px;
-  overflow: hidden;
+  position: relative;
+  object-fit: cover;
+  object-position: center;
 }
 
-.avatar__edit-overlay {
-  background-color: transparent;
-  opacity: 0;
-  overflow: hidden;
+.profile__edit-icon {
+  display: none;
   border: 0;
+  background: transparent url(../images/avatar__edit-btn.svg) center no-repeat;
+  z-index: 2;
   cursor: pointer;
   position: absolute;
-  width: 120px;
-  height: 120px;
+  width: 26px;
+  height: 26px;
+  top: 92px;
+  left: 128px;
 }
 
 .avatar__edit-overlay:hover {

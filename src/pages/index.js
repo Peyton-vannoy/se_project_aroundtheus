@@ -1,11 +1,13 @@
 import "./index.css";
 
 import Api from "../components/Api.js";
-import Card from "../components/card.js";
+import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
+import ProfileEditImage from "../components/ProfileEditImage.js";
 import UserInfo from "../components/UserInfo.js";
 import { settings } from "../utils/constants.js";
 
@@ -17,6 +19,12 @@ const api = new Api({
   },
 });
 
+/* ProfileImage Class */
+const profile = new ProfileEditImage(
+  ".profile__container",
+  ".profile__edit-icon"
+);
+
 /* Profile Variables */
 const profileEditBtn = document.querySelector("#profile-edit-btn");
 const profileTitleInput = document.querySelector("#profile-title-input");
@@ -26,7 +34,7 @@ const profileDescriptionInput = document.querySelector(
 );
 
 /* Avatar Variables */
-const avatarUpdateBtn = document.querySelector("#avatar-save-btn");
+const profileEditIcon = document.querySelector(".profile__container");
 const avatarForm = document.forms["update-avatar-form"];
 
 /* Add Place Variables */
@@ -52,18 +60,22 @@ const addPlaceModal = new PopupWithForm(
   "#places-add-modal",
   handleNewPlaceSubmit
 );
-const updateAvatarModal = new PopupWithForm(
+const updateProfileImage = new PopupWithForm(
   "#avatar-update-modal",
-  handleAvatarSubmit
+  handleProfileImageSubmit
 );
 const imagePreviewModal = new PopupWithImage("#places-preview-modal");
-const deletePlaceModal = new PopupWithForm("#places-delete-modal", () => {});
+const deletePlaceModal = new PopupWithConfirmation(
+  "#places-delete-modal",
+  handleDeleteClick
+);
 
 /* Event Listeners */
 editProfileModal.setEventListeners();
 imagePreviewModal.setEventListeners();
-updateAvatarModal.setEventListeners();
+updateProfileImage.setEventListeners();
 addPlaceModal.setEventListeners();
+profile.setEventListeners();
 
 /* Form Validation */
 deletePlaceModal.setEventListeners();
@@ -72,23 +84,25 @@ profileEditValidation.enableValidation();
 addPlaceValidation.enableValidation();
 
 /* DELETE Place Function */
-function handleDeleteClick(cardID, cardElement) {
-  deletePlaceModal.setSubmitHandler(() => {
-    deletePlaceModal.setLoading(true, "Removing...", "Yes");
-    api
-      .removePlace(cardID)
-      .then(() => {
-        cardElement.remove();
-        deletePlaceModal.close();
-      })
-      .catch((err) => {
-        console.error("Error deleting place:", err);
-      })
-      .finally(() => {
-        deletePlaceModal.setLoading(false, "Removing...", "Yes");
-      });
-  });
+function handleDeleteClick(card) {
   deletePlaceModal.open();
+
+  deletePlaceModal.setSubmitHandler(() => {
+    deletePlaceModal.setSubmitButtonText("Deleting...");
+  });
+
+  api
+    .removePlace(card._id)
+    .then(() => {
+      card.handleDeleteCard();
+      deletePlaceModal.close();
+    })
+    .catch((err) => {
+      console.error("Error deleting place:", err);
+    })
+    .finally(() => {
+      deletePlaceModal.setSubmitButtonText("Delete");
+    });
 }
 
 /* Create Cards */
@@ -143,7 +157,7 @@ api
 
 /* PATCH Profile Edit Function */
 function handleProfileEditSubmit(inputValues) {
-  editProfileModal.setLoading(true);
+  editProfileModal.setSubmitButtonText("Saving...");
 
   if (!inputValues.name || !inputValues.about) {
     console.error("Please fill in all the fields");
@@ -166,33 +180,33 @@ function handleProfileEditSubmit(inputValues) {
       console.error("Error updating user info:", err);
     })
     .finally(() => {
-      editProfileModal.setLoading(false);
+      editProfileModal.setSubmitButtonText("Save");
     });
 }
 
 /* PATCH Profile Avatar Function */
-function handleAvatarSubmit(inputValues) {
-  updateAvatarModal.setLoading(true);
+function handleProfileImageSubmit(inputValues) {
+  updateProfileImage.setSubmitButtonText("Saving...");
 
   api
-    .updateAvatar(inputValues)
+    .editProfileImage(inputValues)
     .then((res) => {
       userInfo.setUserAvatar(res);
-      updateAvatarModal.reset();
-      updateAvatarModal.close();
+      updateProfileImage.reset();
+      updateProfileImage.close();
       console.log("Success:", res);
     })
     .catch((err) => {
       console.error("Error updating profile avatar:", err);
     })
     .finally(() => {
-      updateAvatarModal.setLoading(true, "Save");
+      updateProfileImage.setSubmitButtonText("Save");
     });
 }
 
 /* POST Add Place Function */
 function handleNewPlaceSubmit(inputValues) {
-  addPlaceModal.setLoading(true);
+  addPlaceModal.setSubmitButtonText("Saving...");
 
   api
     .addCard({ name: inputValues.name, link: inputValues.link })
@@ -206,25 +220,27 @@ function handleNewPlaceSubmit(inputValues) {
       console.error("Error adding new place:", err);
     })
     .finally(() => {
-      addPlaceModal.setLoading(false);
-      addPlaceValidation.disableButton();
+      addPlaceModal.setSubmitButtonText("Save");
     });
 }
 
 /* PUT Add Like React */
-function handleLikeReact(likeReact, likeStatus, cardId) {
-  if (likeStatus) {
+function handleLikeReact(card) {
+  if (card.isLiked) {
     api
-      .removeLikeReact(cardId)
+      .removeLikeReact(card._id)
       .then(() => {
-        likeReact.classList.remove("card__react-button_active");
+        card.toggleLike();
+        card.isLiked = false;
       })
       .catch((error) => console.error("Error removing like reaction:", error));
-  } else {
+  }
+  if (!card.isLiked) {
     api
-      .addLikeReact(cardId)
+      .addLikeReact(card._id)
       .then(() => {
-        likeReact.classList.add("card__react-button_active");
+        card.toggleLike();
+        card.isLiked = true;
       })
       .catch((error) => console.error("Error adding like reaction:", error));
   }
@@ -245,6 +261,6 @@ placesAddBtn.addEventListener("click", () => {
 });
 
 /*Profile Avatar Button Listener*/
-avatarUpdateBtn.addEventListener("click", () => {
-  updateAvatarModal.open();
+profileEditIcon.addEventListener("click", () => {
+  updateProfileImage.open();
 });
