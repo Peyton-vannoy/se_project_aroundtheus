@@ -7,7 +7,6 @@ import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
-import ProfileEditImage from "../components/ProfileEditImage.js";
 import UserInfo from "../components/UserInfo.js";
 import { settings } from "../utils/constants.js";
 
@@ -19,12 +18,6 @@ const api = new Api({
   },
 });
 
-/* ProfileImage Class */
-const profile = new ProfileEditImage(
-  ".profile__container",
-  ".profile__edit-icon"
-);
-
 /* Profile Variables */
 const profileEditBtn = document.querySelector("#profile-edit-btn");
 const profileTitleInput = document.querySelector("#profile-title-input");
@@ -34,7 +27,7 @@ const profileDescriptionInput = document.querySelector(
 );
 
 /* Avatar Variables */
-const profileEditIcon = document.querySelector(".profile__container");
+const updateAvatarBtn = document.querySelector("#avatar-save-btn");
 const avatarForm = document.forms["update-avatar-form"];
 
 /* Add Place Variables */
@@ -75,7 +68,6 @@ editProfileModal.setEventListeners();
 imagePreviewModal.setEventListeners();
 updateProfileImage.setEventListeners();
 addPlaceModal.setEventListeners();
-profile.setEventListeners();
 
 /* Form Validation */
 deletePlaceModal.setEventListeners();
@@ -89,20 +81,20 @@ function handleDeleteClick(card) {
 
   deletePlaceModal.setSubmitHandler(() => {
     deletePlaceModal.setSubmitButtonText("Deleting...");
-  });
 
-  api
-    .removePlace(card._id)
-    .then(() => {
-      card.handleDeleteCard();
-      deletePlaceModal.close();
-    })
-    .catch((err) => {
-      console.error("Error deleting place:", err);
-    })
-    .finally(() => {
-      deletePlaceModal.setSubmitButtonText("Delete");
-    });
+    api
+      .removePlace(card._id)
+      .then(() => {
+        card.handleDeleteCard();
+        deletePlaceModal.close();
+      })
+      .catch((err) => {
+        console.error("Error deleting place:", err);
+      })
+      .finally(() => {
+        deletePlaceModal.setSubmitButtonText("Delete");
+      });
+  });
 }
 
 /* Create Cards */
@@ -228,19 +220,19 @@ function handleNewPlaceSubmit(inputValues) {
 function handleLikeReact(card) {
   if (card.isLiked) {
     api
-      .removeLikeReact(card._id)
+      .dislikeCard(card._id)
       .then(() => {
         card.toggleLike();
-        card.isLiked = false;
+        card.setIsLiked(false);
       })
       .catch((error) => console.error("Error removing like reaction:", error));
   }
   if (!card.isLiked) {
     api
-      .addLikeReact(card._id)
+      .likeCard(card._id)
       .then(() => {
         card.toggleLike();
-        card.isLiked = true;
+        card.setIsLiked(true);
       })
       .catch((error) => console.error("Error adding like reaction:", error));
   }
@@ -261,6 +253,6 @@ placesAddBtn.addEventListener("click", () => {
 });
 
 /*Profile Avatar Button Listener*/
-profileEditIcon.addEventListener("click", () => {
+updateAvatarBtn.addEventListener("click", () => {
   updateProfileImage.open();
 });

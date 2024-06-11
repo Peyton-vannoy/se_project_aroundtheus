@@ -31,9 +31,13 @@ export default class Card {
       });
     });
   }
+  setIsLiked(isLiked) {
+    this.isLiked = isLiked;
+    this.renderLikes();
+  }
 
   renderLikes() {
-    if (this._isLiked) {
+    if (this.isLiked) {
       this._likeIcon.classList.add("card__react-button_active");
     } else {
       this._likeIcon.classList.remove("card__react-button_active");
