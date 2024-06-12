@@ -44,10 +44,6 @@ export default class Card {
     }
   }
 
-  toggleLike() {
-    this._likeIcon.classList.toggle("card__react-button_active");
-  }
-
   handleDeleteCard() {
     this._cardElement.remove();
     this._cardElement = null;
