@@ -222,7 +222,6 @@ function handleLikeReact(card) {
     api
       .dislikeCard(card._id)
       .then(() => {
-        card.renderLikes();
         card.setIsLiked(false);
       })
       .catch((error) => console.error("Error removing like reaction:", error));
@@ -231,7 +230,6 @@ function handleLikeReact(card) {
     api
       .likeCard(card._id)
       .then(() => {
-        card.renderLikes();
         card.setIsLiked(true);
       })
       .catch((error) => console.error("Error adding like reaction:", error));
