@@ -15,8 +15,17 @@
       </header>
       <main class="content">
         <section class="profile page__section">
+          <button
+            class="avatar__edit-overlay"
+            type="button"
+            id="avatar-save-btn"
+            aria-label="Update Avatar"
+          >
+            <img src="<%=require("./images/avatar__edit-btn.svg")%>" alt="Edit
+            Avatar" class="avatar__edit-button" />
+          </button>
           <img src="<%=require("./images/avatar_j_cousteau.png")%>" alt="Jacques
-          Cousteau Avatar Image" class="profile__image" />
+          Cousteau Avatar Image" class="profile__image" id="avatar__image" />
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
             <button
@@ -39,7 +48,7 @@
         </section>
       </main>
       <footer class="footer page__section">
-        <p class="footer__copyright">&#169; 2022 Around The U.S.</p>
+        <p class="footer__copyright">&#169; 2023 Around The U.S.</p>
       </footer>
     </div>
     <!-- Profile Name Modal -->
@@ -53,7 +62,7 @@
         <form class="modal__form" id="profile-form" novalidate>
           <input
             type="text"
-            name="title"
+            name="name"
             class="modal__form-input"
             placeholder="Name"
             id="profile-title-input"
@@ -67,7 +76,7 @@
           ></span>
           <input
             type="text"
-            name="description"
+            name="about"
             class="modal__form-input"
             placeholder="Description"
             id="profile-description-input"
@@ -83,6 +92,7 @@
         </form>
       </div>
     </div>
+
     <!-- Add Place Modal -->
     <div class="modal" id="places-add-modal">
       <div class="modal__container">
@@ -94,7 +104,7 @@
         <form class="modal__form" id="add-place-form" novalidate>
           <input
             type="text"
-            name="title"
+            name="name"
             class="modal__form-input"
             placeholder="Title"
             id="place-title-input"
@@ -108,7 +118,7 @@
           ></span>
           <input
             type="url"
-            name="url"
+            name="link"
             class="modal__form-input"
             placeholder="Image URL"
             id="place-url-input"
@@ -124,7 +134,8 @@
         </form>
       </div>
     </div>
-    <!-- Place Preview Modal -->
+
+    <!-- Image Preview Modal -->
     <div class="modal" id="places-preview-modal">
       <div class="modal__container-imagepreview">
         <button
@@ -135,6 +146,56 @@
         <h2 class="modal__image-caption" id="modal-image-caption"></h2>
       </div>
     </div>
+
+    <!-- Confrm Delete Place Modal -->
+    <div class="modal" id="places-delete-modal">
+      <div class="modal__container modal__container-confirm">
+        <button
+          class="modal__close-button"
+          id="delete-place-close-btn"
+        ></button>
+        <h2 class="modal__heading modal__heading-confirm">Are you sure?</h2>
+        <form class="modal__form">
+          <button
+            type="submit"
+            class="modal__save-button modal__save-button-confirm"
+          >
+            Yes
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Update Avatar Modal -->
+    <div class="modal" id="avatar-update-modal">
+      <div class="modal__container modal__container-avatar">
+        <button
+          class="modal__close-button"
+          id="avatar-modal-close-btn"
+        ></button>
+        <h2 class="modal__heading modal__heading-avatar">
+          Change profile picture
+        </h2>
+        <form class="modal__form" id="update-avatar-form" novalidate>
+          <input
+            type="url"
+            name="link"
+            class="modal__form-input"
+            placeholder="Profile Picture URL"
+            id="avatar-url-input"
+            required
+          />
+          <span
+            class="modal__form-input-error"
+            id="avatar-url-input-error"
+          ></span>
+          <button type="submit" class="modal__save-button" disabled>
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
+
     <!-- JS Card Template -->
     <template id="card-template">
       <li class="card">
