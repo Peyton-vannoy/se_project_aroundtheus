@@ -15,6 +15,4 @@ First big project that involves making a responsive website with reacive photos 
 
 **Figma**
 
-- [Link to the project video on google drive](https://drive.google.com/file/d/1f1er8BmMSQv1e9rolFJVWReN7zuuvGKL/view?usp=sharing)
-
 - [Link to the Github deployment](https://peyton-vannoy.github.io/se_project_aroundtheus/)
