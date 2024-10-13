@@ -29,3 +29,11 @@ This project is a responsive web application that allows users to explore images
 - Figma for design mockups
 
 - [Link to the GitHub deployment](https://peyton-vannoy.github.io/se_project_aroundtheus/)
+
+### Future Improvements
+
+- Implement user authentication for personalized experiences.
+- Add a dedicated image gallery with filtering options.
+- Integrate a map to visualize locations.
+- Enhance error handling and user feedback.
+- Optimize performance and loading times.
