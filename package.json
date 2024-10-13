@@ -1,8 +1,9 @@
 {
   "name": "se_project_aroundtheus",
   "version": "1.0.0",
-  "description": "[Link to \"Around The U.S.\" Website](https://sawsimonlinn.github.io/se_project_aroundtheus/)",
+  "description": "[Link to \"Around The U.S.\" Website](https://Peyton-vannoy.github.io/se_project_aroundtheus/)",
   "main": "index.js",
+  "homepage": "https://peyton-vannoy.github.io/se_project_aroundtheus/",
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack serve --mode development",
@@ -10,7 +11,7 @@
     "deploy": "gh-pages -d dist"
   },
   "keywords": [],
-  "author": "Elise Bouer",
+  "author": "Peyton Vannoy",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "7.18.9",
