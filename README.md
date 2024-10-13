@@ -28,6 +28,4 @@ This project is a responsive web application that allows users to explore images
 - Babel
 - Figma for design mockups
 
-### Figma
-
 - [Link to the GitHub deployment](https://peyton-vannoy.github.io/se_project_aroundtheus/)
